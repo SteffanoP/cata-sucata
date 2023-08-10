@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+  
+import MapIframe from './components/GoogleMapComponent';
+
+
+
 import { PageLayout } from './components/PageLayout';
 import { loginRequest } from './authConfig';
 import { callMsGraph } from './graph';
@@ -73,13 +80,30 @@ const MainContent = () => {
 };
   
 function App() {
-  return (
-      <PageLayout>
+    return (
+      <Router>
+        <PageLayout>
           <center>
-              <MainContent />
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/map">Map</Link>
+                </li>
+              </ul>
+            </nav>
+            <Routes>
+    <Route path="/map" element={<MapIframe />} />
+    <Route path="/" element={<MainContent />} />
+</Routes>
+
           </center>
-      </PageLayout>
-  );
-}
+        </PageLayout>
+      </Router>
+    );
+  }
+  
 
 export default App
