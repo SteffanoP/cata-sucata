@@ -27,7 +27,6 @@ export default function MenuLateral() {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
@@ -61,7 +60,6 @@ export default function MenuLateral() {
         </List>
       </Box>
     </div>
-    
   );
   
 

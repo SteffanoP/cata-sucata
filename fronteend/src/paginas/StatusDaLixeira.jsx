@@ -3,7 +3,6 @@ import CardStatusDaLixeira from '../componentes/CardStatusDaLixeira'
 import Navbar from '../componentes/Navbar'
 import { Container, Grid } from '@mui/material'
 
-
 export const StatusDaLixeira = () => {
   return (
     <div >
