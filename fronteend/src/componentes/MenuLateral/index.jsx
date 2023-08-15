@@ -3,13 +3,13 @@ import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function MenuLateral() {
   const [state, setState] = React.useState({
@@ -32,8 +32,8 @@ export default function MenuLateral() {
   };
 
   const list = (anchor) => (
-    <Box>
-      <List>
+    <Box style={{backgroundColor: "green"}}>
+      <List style={{backgroundColor: "green"}}>
         {['Dashboard', 'Rotas', 'Perfil', 'Configurações'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -45,8 +45,7 @@ export default function MenuLateral() {
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <List>
+      <List style={{backgroundColor: "green"}}>
         {['Sair'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -60,12 +59,24 @@ export default function MenuLateral() {
       </List>
     </Box>
   );
+  
 
   return (
     <div>
-      {['Menu'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+      {/*
+
+      <MenuIcon teste/>
+      {[teste].map((anchor) => (  DESCOBRIR PQ NÃO FUNCIONA
+      
+      */} 
+
+      {/*{['Menu'].map((anchor) => (  DO EXEMPLO*/}
+      {['_'].map((anchor) => (
+        <React.Fragment key={anchor} style={{backgroundColor: "green"}}>
+          <MenuIcon></MenuIcon>
+          <Button onClick={toggleDrawer(anchor, true)}>
+            {anchor}
+            </Button>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}

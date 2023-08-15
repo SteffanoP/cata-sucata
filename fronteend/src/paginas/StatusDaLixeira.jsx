@@ -8,8 +8,6 @@ export const StatusDaLixeira = () => {
   return (
     <div>
         <Navbar/>
-        <MenuLateral/>
-
         <Container maxWidth='xg'>
             <Grid container>
                 <Grid item xs={3}>
