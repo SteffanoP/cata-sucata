@@ -68,16 +68,15 @@ export default function MenuLateral() {
   return (
     <div>
       {/*
-
       <MenuIcon teste/>
       {[teste].map((anchor) => (  DESCOBRIR PQ NÃO FUNCIONA
-      
       */} 
 
       {/*{['Menu'].map((anchor) => (  DO EXEMPLO*/}
-      {['_'].map((anchor) => (
+
+      <MenuIcon></MenuIcon>
+      {[''].map((anchor) => (
         <React.Fragment key={anchor} style={{backgroundColor: "green"}}>
-          <MenuIcon></MenuIcon>
           <Button onClick={toggleDrawer(anchor, true)}>
             {anchor}
             </Button>

@@ -15,9 +15,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuLateral from '../MenuLateral';
 
-const CorNavbar = styled('div')(({ theme }) => ({
-  backgroundColor: 'green'
-}));
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -154,16 +151,18 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{backgroundColor: "green"}}>
         <Toolbar>
+
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            sx={{ mr: 4 }}
           >
-             {/*  <MenuIcon /> */}
             <MenuLateral/>
+
           </IconButton>
+
           <Typography
             variant="h6"
             noWrap

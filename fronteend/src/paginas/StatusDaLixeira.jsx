@@ -4,11 +4,6 @@ import Navbar from '../componentes/Navbar'
 import { Container, Grid } from '@mui/material'
 
 
-const styles = {
-    backgroundPosition: 'center',
-    justifyContent: 'center'
-  };
-
 export const StatusDaLixeira = () => {
   return (
     <div >
