@@ -17,10 +17,10 @@ export default function CardStatusDaLixeira() {
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography gutterBottom variant="h5" component="div">
-            Status da Lixeira
+            Quantidade de lixeiras
           </Typography>
           <Typography color="text.secondary" gutterBottom variant="h5">
-            Cheia 
+            vazia/média/cheia
           </Typography>
         </Box>
       </CardContent>
