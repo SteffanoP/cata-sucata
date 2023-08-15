@@ -32,32 +32,36 @@ export default function MenuLateral() {
   };
 
   const list = (anchor) => (
-    <Box style={{backgroundColor: "green"}}>
-      <List style={{backgroundColor: "green"}}>
-        {['Dashboard', 'Rotas', 'Perfil', 'Configurações'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <List style={{backgroundColor: "green"}}>
-        {['Sair'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+    <div style={{backgroundColor: "green"}}>
+        <Box >
+        <List style={{backgroundColor: "green"}}>
+          {['Dashboard', 'Rotas', 'Perfil', 'Configurações'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton style={{color: "white"}}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        
+        <List style={{backgroundColor: "green"}}>
+          {['Sair'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton style={{color: "white"}}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </div>
+    
   );
   
 
