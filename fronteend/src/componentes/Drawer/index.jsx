@@ -1,6 +1,11 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import { Container, Grid } from '@mui/material'
+import axios from 'axios';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -141,6 +146,27 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
+    const [sensorQtd, setSensorQtd] = useState([]);
+
+    useEffect(() => {
+        async function getSensorQtd() {
+          try {
+            let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview'//, {
+            //   headers: {
+            //     'Ocp-Apim-Subscription-Key': 'e7eae6903fc041bd8dfdda70214d9fd4'
+            //   }
+            // }
+            );
+            //console.log(response.data.devices_info.number_devices);
+            setSensorQtd(response.data.devices_info);
+          } catch (error) {
+            console.log('Erro ao buscar dados:', error);
+          }
+        }
+        getSensorQtd();
+    }, []);
+    //console.log(sensorQtd.number_devices);
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -245,33 +271,21 @@ export default function MiniDrawer() {
                     </Grid>
                 </Grid>
             </Container>
-            {/* <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-            sapien faucibus et molestie ac.
-            </Typography>
-            <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-            eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-            neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-            tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-            sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-            tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-            tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-            eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
-            </Typography> */}
+            {/* <Card sx={{ maxWidth: 180 }}> I don't know yet how to aling this object under the others
+                <CardMedia
+                    sx={{ height: 5 }}
+                />
+                <CardContent>
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <Typography gutterBottom variant="h6" component="div">
+                    Sensores Ativos
+                    </Typography>
+                    <Typography color="text.secondary" gutterBottom variant="h5">
+                    <p>{sensorQtd.number_devices}</p>
+                    </Typography>
+                </Box>
+                </CardContent>
+            </Card> */}
         </Box>
         </Box>
     );
