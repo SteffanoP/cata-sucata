@@ -151,12 +151,7 @@ export default function MiniDrawer() {
     useEffect(() => {
         async function getSensorQtd() {
           try {
-            let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview'//, {
-            //   headers: {
-            //     'Ocp-Apim-Subscription-Key': 'e7eae6903fc041bd8dfdda70214d9fd4'
-            //   }
-            // }
-            );
+            let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview');
             //console.log(response.data.devices_info.number_devices);
             setSensorQtd(response.data.devices_info);
           } catch (error) {
