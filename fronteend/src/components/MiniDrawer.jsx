@@ -166,7 +166,7 @@ export default function MiniDrawer() {
         async function getStatus() {
           try {
             let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview');
-            console.log(response.data.status_trash);
+            //console.log(response.data.status_trash);
             setStatus(response.data.status_trash);
             //setSensorQtd(response.data.devices_info);
           } catch (error) {
@@ -182,7 +182,7 @@ export default function MiniDrawer() {
     
         return () => clearInterval(interval);
     }, []);
-    console.log(status.full);
+    //console.log(status.full);
 
     const handleDrawerOpen = () => {
         setOpen(true);
