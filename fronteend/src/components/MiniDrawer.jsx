@@ -31,7 +31,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import CardStatusDaLixeira from '../CardStatusDaLixeira';
+import CardStatusDaLixeira from './CardStatusDaLixeira';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
