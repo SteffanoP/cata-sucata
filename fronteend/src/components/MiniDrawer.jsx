@@ -31,7 +31,6 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import CardStatusDaLixeira from './CardStatusDaLixeira';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -146,21 +145,44 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
-    const [sensorQtd, setSensorQtd] = useState([]);
+    //const [sensorQtd, setSensorQtd] = useState([]);
+    const [status, setStatus] = useState([]);
+
+    // useEffect(() => {
+    //     async function getSensorQtd() {
+    //       try {
+    //         let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview');
+    //         //console.log(response.data.devices_info.number_devices);
+    //         setSensorQtd(response.data.devices_info);
+    //       } catch (error) {
+    //         console.log('Erro ao buscar dados:', error);
+    //       }
+    //     }
+    //     getSensorQtd();
+    // }, []);
+    //console.log(sensorQtd.number_devices);
 
     useEffect(() => {
-        async function getSensorQtd() {
+        async function getStatus() {
           try {
             let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview');
-            //console.log(response.data.devices_info.number_devices);
-            setSensorQtd(response.data.devices_info);
+            console.log(response.data.status_trash);
+            setStatus(response.data.status_trash);
+            //setSensorQtd(response.data.devices_info);
           } catch (error) {
             console.log('Erro ao buscar dados:', error);
           }
         }
-        getSensorQtd();
+        getStatus();
+    
+        const interval = setInterval(() => {
+          console.log("Requisição!");
+          getStatus();
+        }, 30000);
+    
+        return () => clearInterval(interval);
     }, []);
-    //console.log(sensorQtd.number_devices);
+    console.log(status.full);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -256,31 +278,64 @@ export default function MiniDrawer() {
             <Container maxWidth='lg' >
                 <Grid container spacing={{ lg: 6, md: 3 }} columns={{ xs: 3, sm: 8, md: 10 }}>
                     <Grid item xs={3}>
-                        <CardStatusDaLixeira statusCode='1'/>
+                        <Card sx={{ maxWidth: 305 }}>
+                            <CardMedia
+                                sx={{ height: 10 }}
+                                // image="/static/images/cards/contemplative-reptile.jpg"
+                                // title="green iguana"
+                            />
+                            <CardContent>
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                    <Typography gutterBottom variant="h6" component="div">
+                                        Lixeiras cheias
+                                    </Typography>
+                                    <Typography color="text.secondary" gutterBottom variant="h5">
+                                        <p>{status.full}</p>
+                                    </Typography>
+                                </Box>
+                            </CardContent>
+                        </Card>
                     </Grid>
                     <Grid item xs={3}>
-                        <CardStatusDaLixeira statusCode='2'/>
+                        <Card sx={{ maxWidth: 305 }}>
+                            <CardMedia
+                                sx={{ height: 10 }}
+                                // image="/static/images/cards/contemplative-reptile.jpg"
+                                // title="green iguana"
+                            />
+                            <CardContent>
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                    <Typography gutterBottom variant="h6" component="div">
+                                        Lixeiras médias
+                                    </Typography>
+                                    <Typography color="text.secondary" gutterBottom variant="h5">
+                                        <p>{status.medium}</p>
+                                    </Typography>
+                                </Box>
+                            </CardContent>
+                        </Card>
                     </Grid>
                     <Grid item xs={3}>
-                        <CardStatusDaLixeira statusCode='3'/>
+                        <Card sx={{ maxWidth: 305 }}>
+                            <CardMedia
+                                sx={{ height: 10 }}
+                                // image="/static/images/cards/contemplative-reptile.jpg"
+                                // title="green iguana"
+                            />
+                            <CardContent>
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                    <Typography gutterBottom variant="h6" component="div">
+                                        Lixeiras vazias
+                                    </Typography>
+                                    <Typography color="text.secondary" gutterBottom variant="h5">
+                                        <p>{status.empty}</p>
+                                    </Typography>
+                                </Box>
+                            </CardContent>
+                        </Card>
                     </Grid>
-                </Grid>
+                </Grid> 
             </Container>
-            {/* <Card sx={{ maxWidth: 180 }}> I don't know yet how to aling this object under the others
-                <CardMedia
-                    sx={{ height: 5 }}
-                />
-                <CardContent>
-                <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography gutterBottom variant="h6" component="div">
-                    Sensores Ativos
-                    </Typography>
-                    <Typography color="text.secondary" gutterBottom variant="h5">
-                    <p>{sensorQtd.number_devices}</p>
-                    </Typography>
-                </Box>
-                </CardContent>
-            </Card> */}
         </Box>
         </Box>
     );
