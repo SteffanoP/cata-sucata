@@ -11,24 +11,25 @@ export default function CardStatusDaLixeira({statusCode}) {
 
   const [status, setStatus] = useState([]);
   //const [sensorQtd, setSensorQtd] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function getStatus() {
-      try {
-        let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview');
-        //console.log(response.data.devices_info.number_devices);
-        setStatus(response.data.status_trash);
-        //setSensorQtd(response.data.devices_info);
-        setLoading(false);
-      } catch (error) {
-        console.log('Erro ao buscar dados:', error);
+    const interval = setInterval(() => {
+      async function getStatus() {
+        try {
+          let response = await axios.get('https://cata-sucata.azure-api.net/preview/status-preview');
+          //console.log(response.data.devices_info.number_devices);
+          setStatus(response.data.status_trash);
+          //setSensorQtd(response.data.devices_info);
+        } catch (error) {
+          console.log('Erro ao buscar dados:', error);
+        }
       }
-    }
-    getStatus();
+      getStatus();
+    }, 30000);
+    return () => clearInterval(interval);
   }, []);
-  //console.log(sensorQtd.number_devices);
-  //console.log(status.empty);
+  // console.log(sensorQtd.number_devices);
+  // console.log(status.empty);
 
   return (
     <Card sx={{ maxWidth: 305 }}>
