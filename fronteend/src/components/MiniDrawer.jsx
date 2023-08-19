@@ -190,7 +190,7 @@ export default function MiniDrawer() {
                 <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-                Cata-Sucata
+                Cata-Sucata2
             </Typography>
             <Search>
                 <SearchIconWrapper>
