@@ -1,4 +1,4 @@
-name: Deploy to Test Environment
+name: Deploy to Preview Environment
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ jobs:
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     environment: 
-      name: preview
+      name: preview-${{ github.ref_name }}
       url: ${{ steps.builddeploy.outputs.static_web_app_url }}
     name: Build and Deploy Job
     steps:
@@ -49,6 +49,4 @@ jobs:
         uses: strumwolf/delete-deployment-environment@v2.2.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: preview
-          onlyDeactivateDeployments: true
-          ref: ${{ github.ref_name }}
+          environment: preview-${{ github.ref_name }}
