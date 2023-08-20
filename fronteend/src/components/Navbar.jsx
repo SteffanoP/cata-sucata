@@ -169,7 +169,7 @@ export default function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            CATA-SUCATA
+            CATA-SUCATA 2
           </Typography>
             <Search>
               <SearchIconWrapper>
