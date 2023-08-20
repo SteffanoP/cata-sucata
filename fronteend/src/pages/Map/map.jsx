@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, CssBaseline, List, ListItem, ListItemText } from '@mui/material';
+import {  CssBaseline,  } from '@mui/material';
 import GoogleMapComponent from '../../components/MapArea';
 import RightSidebar from '../../components/RightSidebar';
 import Sidebar from '../../components/Sidebar';
