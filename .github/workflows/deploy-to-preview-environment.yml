@@ -52,8 +52,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_JOLLY_RIVER_0F06D4E0F }}
           action: "close"
-      - name: Delete Preview Deployment Environment
-        uses: strumwolf/delete-deployment-environment@v2.2.3
-        with:
-          token: ${{ secrets.DELETE_DEPLOYMENT_ENVIRONMENT_TOKEN }}
-          environment: preview-${{ github.ref_name }}
