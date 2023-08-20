@@ -55,5 +55,5 @@ jobs:
       - name: Delete Preview Deployment Environment
         uses: strumwolf/delete-deployment-environment@v2.2.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.DELETE_DEPLOYMENT_ENVIRONMENT_TOKEN }}
           environment: preview-${{ github.ref_name }}
