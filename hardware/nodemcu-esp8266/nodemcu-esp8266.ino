@@ -327,7 +327,8 @@ static char* getTelemetryPayload()
   int distance;
   //Ultrasonic 1
   distance = ultrasonic1.read();
-  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"type\": "));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"uid\": \"0001\""));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"type\": "));
   (void)az_span_u32toa(temp_span, SENSOR_TYPE, &temp_span);
   temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"data\": "));
   (void)az_span_u32toa(temp_span, (uint32_t) distance, &temp_span);
@@ -335,7 +336,8 @@ static char* getTelemetryPayload()
 
   //Ultrasonic 2
   distance = ultrasonic2.read();
-  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"type\": "));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"uid\": \"0002\""));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"type\": "));
   (void)az_span_u32toa(temp_span, SENSOR_TYPE, &temp_span);
   temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"data\": "));
   (void)az_span_u32toa(temp_span, (uint32_t) distance, &temp_span);
