@@ -80,7 +80,7 @@ static unsigned char encrypted_signature[32];
 static char base64_decoded_device_key[32];
 static unsigned long next_telemetry_send_time_ms = 0;
 static char telemetry_topic[128];
-static uint8_t telemetry_payload[100];
+static uint8_t telemetry_payload[200];
 static uint32_t telemetry_send_count = 0;
 
 //Example Package
@@ -320,12 +320,15 @@ static char* getTelemetryPayload()
   az_span temp_span = az_span_create(telemetry_payload, sizeof(telemetry_payload));
   temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{ \"sensor_quantity\": "));
   (void)az_span_u32toa(temp_span, SENSOR_QUANTITY, &temp_span);
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"sensor_latitude\": \"-8.017797\""));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"sensor_longitude\": \"-34.944716\""));
   temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"sensor_data\": [ "));
 
   int distance;
   //Ultrasonic 1
   distance = ultrasonic1.read();
-  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"type\": "));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"uid\": \"0001\""));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"type\": "));
   (void)az_span_u32toa(temp_span, SENSOR_TYPE, &temp_span);
   temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"data\": "));
   (void)az_span_u32toa(temp_span, (uint32_t) distance, &temp_span);
@@ -333,7 +336,8 @@ static char* getTelemetryPayload()
 
   //Ultrasonic 2
   distance = ultrasonic2.read();
-  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"type\": "));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR("{\"uid\": \"0002\""));
+  temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"type\": "));
   (void)az_span_u32toa(temp_span, SENSOR_TYPE, &temp_span);
   temp_span = az_span_copy(temp_span, AZ_SPAN_FROM_STR(", \"data\": "));
   (void)az_span_u32toa(temp_span, (uint32_t) distance, &temp_span);
