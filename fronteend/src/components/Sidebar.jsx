@@ -3,7 +3,6 @@ import { Drawer, Typography, Divider, List, ListItem, ListItemIcon, ListItemText
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import cataSucataIcon from '../assets/cata-sucata.png';  // Ajuste o caminho se necessário
