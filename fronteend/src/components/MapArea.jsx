@@ -41,7 +41,7 @@ function GoogleMapComponent() {
       ];
 
       for (let i = 0; i < features.length; i++) {
-        const marker = new google.maps.Marker({
+        new google.maps.Marker({
           position: features[i].position,
           icon: icons[features[i].type].icon,
           map: map,
