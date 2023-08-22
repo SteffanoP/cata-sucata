@@ -2,6 +2,8 @@ import React from 'react';
 import { Drawer, Typography, Divider, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import cataSucataIcon from '../assets/cata-sucata.png';  // Ajuste o caminho se necessário
@@ -32,11 +34,11 @@ const Sidebar = () => {
       </Box>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button component={Link} to="/">
           <ListItemIcon><DashboardIcon /></ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to="/map">
           <ListItemIcon><MapIcon /></ListItemIcon>
           <ListItemText primary="Mapa" />
         </ListItem>
