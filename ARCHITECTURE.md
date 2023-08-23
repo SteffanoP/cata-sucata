@@ -2,6 +2,8 @@
 
 ![azure-architecture](./docs/assets/arquitetura-azure.jpeg)
 
+## Sobre a arquitetura
+
 ### Sensores de lixeira
 
 Os sensores de lixeira são responsáveis por avaliar o estado a ser observado da lixeira, para este protótipo, utilizamos um sensor ultrasônico, que verificava a distância entre o fundo da lixeira até sua tampa (onde o sensor ficaria posicionado). Dessa forma, é possível prever quando uma lixeira estará cheia ou vazia.
@@ -37,3 +39,9 @@ O Azure Active Directory é um diretório de gerenciamento de acesso e identidad
 ### Azure Static Web App
 
 O Azure Static Web App é o serviço de hospedagem de Web Apps Estáticos, com ele é possível hospedar nosso website na nuvem utilizando apenas artefatos estáticos. Com ele, nós fazemos o build do React e transformamos o front-end em artefatos estáticos (HTML, Css e JS). Por fim, esse serviço disponibiliza um endpoint para acessar o site estático.
+
+## Custos da Arquitetura em Nuvem
+
+Os custos da arquitetura em nuvem foram previstos sob a calculadora de custos em nuvem na Azure: <https://azure.com/e/f91547e62e75476fb19c8142e22d268f>
+
+A previsão é um custo inicial de R$406.17 por mês.
