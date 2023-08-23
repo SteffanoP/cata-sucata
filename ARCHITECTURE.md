@@ -20,6 +20,8 @@ A nuvem da Azure, é uma nuvem pública de serviços de internet, criada e manti
 
 ### Azure Cosmos DB (NoSQL)
 
+O Azure Cosmos DB é um banco de dados NoSQL Serverless da Azure que permite armazenar dados não estruturados para aplicações. Esse serviço será utilizado para armazenar os dados dos sensores, visto que, os sensores podem enviar diversos tipos de estruturas de dados.
+
 ### Azure App Functions
 
 O Azure App Functions é o serviço de Plataforma como serviço de funções serverless que é utilizado para rodar funções na nuvem. Em específico, serve como um back-end de microserviços (funções) onde cada função pode estar relacionado com uma funcionalidade para uma API; que é o nosso caso, as funções estão integradas a API para obter informações dos sensores.
@@ -30,4 +32,8 @@ A Azure API Management é o serviço de API da Azure, que providencia um endere�
 
 ### Azure Active Directory
 
+O Azure Active Directory é um diretório de gerenciamento de acesso e identidade baseada em nuvem, ele irá permitir a autenticação de usuários no front-end para terem acesso à API.
+
 ### Azure Static Web App
+
+O Azure Static Web App é o serviço de hospedagem de Web Apps Estáticos, com ele é possível hospedar nosso website na nuvem utilizando apenas artefatos estáticos. Com ele, nós fazemos o build do React e transformamos o front-end em artefatos estáticos (HTML, Css e JS). Por fim, esse serviço disponibiliza um endpoint para acessar o site estático.
