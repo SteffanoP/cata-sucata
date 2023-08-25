@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
+import Chart from '../../components/Chart';
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -63,7 +64,7 @@ export const Dashboard = () => {
           >
             {/* Status das lixeiras */}
             <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100 }}>
+              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#E87461" }}>
                 <CardContent>
                   <Box
                     display="flex"
@@ -86,7 +87,7 @@ export const Dashboard = () => {
             </Grid>
 
             <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100 }}>
+              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#E0C879" }}>
                 <CardContent>
                   <Box
                     display="flex"
@@ -109,7 +110,7 @@ export const Dashboard = () => {
             </Grid>
 
             <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100 }}>
+              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#A1CF6B" }}>
                 <CardContent>
                   <Box
                     display="flex"
@@ -133,7 +134,7 @@ export const Dashboard = () => {
 
             {/* Dados Diários */}
             <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100 }}>
+              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#D5D887" }}>
                 <CardContent>
                   <Box
                     display="flex"
@@ -156,7 +157,7 @@ export const Dashboard = () => {
             </Grid>
 
             <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100 }}>
+              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#D5D887"}}>
                 <CardMedia
                   sx={{ height: 10 }}
                 />
@@ -174,7 +175,7 @@ export const Dashboard = () => {
                       gutterBottom
                       variant="h6"
                     >
-                      850 m³
+                      70 m³
                     </Typography>
                   </Box>
                 </CardContent>
@@ -182,7 +183,7 @@ export const Dashboard = () => {
             </Grid>
 
             <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100 }}>
+              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#D5D887" }}>
                 <CardMedia
                   sx={{ height: 10 }}
                 />
@@ -200,14 +201,15 @@ export const Dashboard = () => {
                       gutterBottom
                       variant="h6"
                     >
-                      12.350 kg
+                      120 kg
                     </Typography>
                   </Box>
                 </CardContent>
               </Card>
             </Grid>
-
           </Grid>
+
+          <Chart/>
         </Container>
       </Box>
     </Box>
