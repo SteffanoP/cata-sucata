@@ -6,7 +6,7 @@
 
 ### Sensores de lixeira
 
-Os sensores de lixeira são responsáveis por avaliar o estado a ser observado da lixeira, para este protótipo, utilizamos um sensor ultrasônico, que verificava a distância entre o fundo da lixeira até sua tampa (onde o sensor ficaria posicionado). Dessa forma, é possível prever quando uma lixeira estará cheia ou vazia.
+Os sensores de lixeira são responsáveis por avaliar o estado a ser observado da lixeira. Para esse protótipo, utilizamos um sensor ultrasônico, que verifica a distância entre o fundo da lixeira até sua tampa (onde o sensor ficaria posicionado). Dessa forma, é possível prever quando uma lixeira estará cheia ou vazia.
 
 ### Gateways
 
@@ -38,7 +38,7 @@ O Azure Active Directory é um diretório de gerenciamento de acesso e identidad
 
 ### Azure Static Web App
 
-O Azure Static Web App é o serviço de hospedagem de Web Apps Estáticos, com ele é possível hospedar nosso website na nuvem utilizando apenas artefatos estáticos. Com ele, nós fazemos o build do React e transformamos o front-end em artefatos estáticos (HTML, Css e JS). Por fim, esse serviço disponibiliza um endpoint para acessar o site estático.
+O Azure Static Web App é o serviço de hospedagem de Web Apps Estáticos, com ele é possível hospedar nosso website na nuvem utilizando apenas artefatos estáticos. Além disso, nós fazemos o build React e transformamos o front-end em artefatos estáticos (HTML, Css e JS). Por fim, esse serviço disponibiliza um endpoint para acessar o site estático.
 
 ## Custos da Arquitetura em Nuvem
 
