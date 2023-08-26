@@ -34,17 +34,18 @@ export const Dashboard = () => {
         setStatus(response.data.status_trash);
         setSensorQtd(response.data.devices_info);
 
-        const newNotifications = [];
+        const novasNotificações = [];
 
         if (response.data.status_trash.full > 0) {
-          newNotifications.push("Lixeira cheia! Solicitar coleta o quanto antes");
+          novasNotificações.push("Lixeira cheia! Solicitar coleta o quanto antes");
         }
 
+        //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito
         if (response.data.status_trash.unknown > 0) {
-          newNotifications.push("Dispositivo com defeito!");
+          novasNotificações.push("Dispositivo com defeito!");
         }
 
-        setNotifications(newNotifications);
+        setNotifications(novasNotificações);
       } catch (error) {
         console.log("Erro ao buscar dados:", error);
       }
