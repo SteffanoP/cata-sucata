@@ -43,7 +43,7 @@ export const Dashboard = () => {
         
         //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito, pois o status.unknow está como 0
         if (response.data.status_trash.unknown > 0) {
-          novasNotificações.push("Dispositivo com defeito!");
+          novasNotificações.push("Temos um dispositivo com defeito!");
         }
 
         setNotifications(novasNotificações);
