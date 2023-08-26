@@ -10,13 +10,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MuiAppBar from "@mui/material/AppBar";
 import Popover from '@mui/material/Popover';
 
-export default function Navbar() {
+export default function Navbar({ notifications }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [notifications, setNotifications] = React.useState([
-    "Temos 1 lixeira cheia! Por favor, solicite a coleta o quanto antes",
-    "Notificação 2",
-    "A coleta da lixeira 'Id' foi realizada com sucesso!"
-  ]);
 
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,7 +73,10 @@ export default function Navbar() {
               anchorReference="anchorPosition"
               anchorPosition={{
                 top: anchorEl ? anchorEl.getBoundingClientRect().bottom : 0,
-                left: anchorEl ? anchorEl.getBoundingClientRect().left + anchorEl.getBoundingClientRect().width / 2 : 0
+                left: anchorEl
+                  ? anchorEl.getBoundingClientRect().left +
+                    anchorEl.getBoundingClientRect().width / 2
+                  : 0,
               }}
               transformOrigin={{
                 vertical: 'top',
@@ -86,7 +84,9 @@ export default function Navbar() {
               }}
             >
               {notifications.map((notification, index) => (
-                <Typography key={index} sx={{ p: 2 }}>{notification}</Typography>
+                <Typography key={index} sx={{ p: 2 }}>
+                  {notification}
+                </Typography>
               ))}
             </Popover>
           </Box>

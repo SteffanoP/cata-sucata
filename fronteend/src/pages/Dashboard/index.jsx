@@ -23,6 +23,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export const Dashboard = () => {
   const [sensorQtd, setSensorQtd] = useState([]);
   const [status, setStatus] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     async function getStatus() {
@@ -30,9 +31,20 @@ export const Dashboard = () => {
         let response = await axios.get(
           "https://cata-sucata.azure-api.net/preview/status-preview"
         );
-        //console.log(response.data.status_trash);
         setStatus(response.data.status_trash);
         setSensorQtd(response.data.devices_info);
+
+        const newNotifications = [];
+
+        if (response.data.status_trash.full > 0) {
+          newNotifications.push("Lixeira cheia! Solicitar coleta o quanto antes");
+        }
+
+        if (response.data.status_trash.unknown > 0) {
+          newNotifications.push("Dispositivo com defeito!");
+        }
+
+        setNotifications(newNotifications);
       } catch (error) {
         console.log("Erro ao buscar dados:", error);
       }
@@ -40,18 +52,16 @@ export const Dashboard = () => {
     getStatus();
 
     const interval = setInterval(() => {
-      //console.log("Requisição!");
       getStatus();
     }, 30000);
 
     return () => clearInterval(interval);
   }, []);
-  //console.log(status.full);
 
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar/>
-      <Navbar/>
+      <Navbar notifications={notifications}/>
       
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
