@@ -37,9 +37,10 @@ export const Dashboard = () => {
         const novasNotificações = [];
 
         if (response.data.status_trash.full > 0) {
-          novasNotificações.push("Lixeira cheia! Solicitar coleta o quanto antes");
+          const qtdDeLixeiras = response.data.status_trash.full;
+          novasNotificações.push(`Temos ${qtdDeLixeiras} lixeira(s) cheia(s)! Solicitar a coleta o quanto antes!`);
         }
-
+        
         //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito
         if (response.data.status_trash.unknown > 0) {
           novasNotificações.push("Dispositivo com defeito!");
