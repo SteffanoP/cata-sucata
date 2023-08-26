@@ -9,7 +9,6 @@ import { useMsal } from "@azure/msal-react";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { loginRequest } from "../../authConfig";
 import Header from "../../components/Header";
-import formLogo from './signup.svg';
 
 
 const LoginPage = () => {

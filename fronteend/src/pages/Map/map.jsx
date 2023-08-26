@@ -1,35 +1,22 @@
-import React from "react";
-import { CssBaseline } from "@mui/material";
-import GoogleMapComponent from "../../components/MapArea";
-import RightSidebar from "../../components/RightSidebar";
-import Sidebar from "../../components/Sidebar";
-import {
-  AuthenticatedTemplate,
-  UnauthenticatedTemplate,
-  useMsal,
-} from "@azure/msal-react";
+import React from 'react';
+import {  CssBaseline,  } from '@mui/material';
+import GoogleMapComponent from '../../components/MapArea';
+import RightSidebar from '../../components/RightSidebar';
+import Sidebar from '../../components/Sidebar';
+
 const PageMap = () => {
   return (
-    <div>
-      <AuthenticatedTemplate>
-        <div style={{ display: "flex" }}>
-          <CssBaseline />
-          <Sidebar />
+    <div style={{ display: 'flex' }}>
+      <CssBaseline />
+      <Sidebar />  
 
-          <main style={{ flexGrow: 1, padding: "16px" }}>
-            <GoogleMapComponent />
-          </main>
-          <RightSidebar />
-        </div>
-      </AuthenticatedTemplate>
-
-      <UnauthenticatedTemplate>
-        <h5>
-          <center>Please sign-in to see your profile information.</center>
-        </h5>
-      </UnauthenticatedTemplate>
+      <main style={{ flexGrow: 1, padding: '16px' }}>
+        <GoogleMapComponent />
+      </main>
+      <RightSidebar />
     </div>
   );
-};
+}
 
 export default PageMap;
+
