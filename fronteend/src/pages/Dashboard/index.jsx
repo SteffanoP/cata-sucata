@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import axios from 'axios'; 
+import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Sidebar from '../../components/Sidebar';
-import Navbar from '../../components/Navbar';
-import Chart from '../../components/Chart';
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import Chart from "../../components/Chart";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Link } from "react-router-dom";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from "@azure/msal-react";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -49,169 +57,222 @@ export const Dashboard = () => {
   //console.log(status.full);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Sidebar/>
-      <Navbar/>
-      
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Container maxWidth="lg">
-          <Grid
-            container
-            spacing={{ lg: 6, md: 3 }}
-            columns={{ xs: 3, sm: 8, md: 10 }}
-            alignItems='center'
-          >
-            {/* Status das lixeiras */}
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#E87461" }}>
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <Typography gutterBottom variant="h6" component="div">
-                      Lixeiras cheias
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant="h6"
-                    >
-                      <p>{status.full}</p>
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+    <div>
+      <AuthenticatedTemplate>
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Navbar />
 
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#E0C879" }}>
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <DrawerHeader />
+            <Container maxWidth="lg">
+              <Grid
+                container
+                spacing={{ lg: 6, md: 3 }}
+                columns={{ xs: 3, sm: 8, md: 10 }}
+                alignItems="center"
+              >
+                {/* Status das lixeiras */}
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#E87461",
+                    }}
                   >
-                    <Typography gutterBottom variant="h6" component="div">
-                      Lixeiras médias
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant="h6"
-                    >
-                      <p>{status.medium}</p>
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                    <CardContent>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          Lixeiras cheias
+                        </Typography>
+                        <Typography
+                          color="text.secondary"
+                          gutterBottom
+                          variant="h6"
+                        >
+                          <p>{status.full}</p>
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
 
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#A1CF6B" }}>
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#E0C879",
+                    }}
                   >
-                    <Typography gutterBottom variant="h6" component="div">
-                      Lixeiras vazias
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant="h6"
-                    >
-                      <p>{status.empty}</p>
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                    <CardContent>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          Lixeiras médias
+                        </Typography>
+                        <Typography
+                          color="text.secondary"
+                          gutterBottom
+                          variant="h6"
+                        >
+                          <p>{status.medium}</p>
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
 
-            {/* Dados Diários */}
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#D5D887" }}>
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#A1CF6B",
+                    }}
                   >
-                    <Typography gutterBottom variant="h6" component="div">
-                      Sensores
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant="h6"
-                    >
-                      <p>{sensorQtd.number_devices}</p>
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                    <CardContent>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          Lixeiras vazias
+                        </Typography>
+                        <Typography
+                          color="text.secondary"
+                          gutterBottom
+                          variant="h6"
+                        >
+                          <p>{status.empty}</p>
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
 
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#D5D887"}}>
-                <CardMedia
-                  sx={{ height: 10 }}
-                />
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                {/* Dados Diários */}
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#D5D887",
+                    }}
                   >
-                    <Typography gutterBottom variant="h6" component="div">
-                      Volume
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant="h6"
-                    >
-                      70 m³
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                    <CardContent>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          Sensores
+                        </Typography>
+                        <Typography
+                          color="text.secondary"
+                          gutterBottom
+                          variant="h6"
+                        >
+                          <p>{sensorQtd.number_devices}</p>
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
 
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#D5D887" }}>
-                <CardMedia
-                  sx={{ height: 10 }}
-                />
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#D5D887",
+                    }}
                   >
-                    <Typography gutterBottom variant="h6" component="div">
-                      Peso
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant="h6"
-                    >
-                      120 kg
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+                    <CardMedia sx={{ height: 10 }} />
+                    <CardContent>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          Volume
+                        </Typography>
+                        <Typography
+                          color="text.secondary"
+                          gutterBottom
+                          variant="h6"
+                        >
+                          70 m³
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
 
-          <Chart/>
-        </Container>
-      </Box>
-    </Box>
-  )
-}
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#D5D887",
+                    }}
+                  >
+                    <CardMedia sx={{ height: 10 }} />
+                    <CardContent>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          Peso
+                        </Typography>
+                        <Typography
+                          color="text.secondary"
+                          gutterBottom
+                          variant="h6"
+                        >
+                          120 kg
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+
+              <Chart />
+            </Container>
+          </Box>
+        </Box>
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <h5>
+          <center>Please sign-in to see your profile information.</center>
+        </h5>
+        <ListItem button component={Link} to="/">
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Sair" />
+        </ListItem>
+      </UnauthenticatedTemplate>
+    </div>
+  );
+};

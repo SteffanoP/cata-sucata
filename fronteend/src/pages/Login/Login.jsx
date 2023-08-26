@@ -9,7 +9,7 @@ import { useMsal } from "@azure/msal-react";
 import { useIsAuthenticated } from "@azure/msal-react";
 import { loginRequest } from "../../authConfig";
 import Header from "../../components/Header";
-
+import { ReactComponent as YourSvg } from "./login.svg";  // Substitua pelo caminho do seu arquivo SVG
 
 const LoginPage = () => {
   const { instance } = useMsal();
@@ -19,16 +19,8 @@ const LoginPage = () => {
   return (
     <div>
       <Header />
-      {/* <Grid item xs={6}>
-        <img
-          src={formLogo}
-          alt="form-logo"
-          style={{ maxWidth: "100%", height: "auto" }}
-        />
-      </Grid> */}
       <Container
         component="main"
-        maxWidth="xs"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -36,58 +28,66 @@ const LoginPage = () => {
           height: "100vh",
         }}
       >
-        <Paper
-          elevation={3}
-          style={{
-            padding: "20px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Cata-Sucata Login
-          </Typography>
-          <div style={{ width: "100%", marginTop: "20px" }}>
-            {isAuthenticated ? (
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={() => {
-                  instance.logoutPopup({
-                    postLogoutRedirectUri: "/",
-                    mainWindowRedirectUri: "/",
-                  });
-                }}
-              >
-                Sair
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={() => {
-                  instance.loginPopup(loginRequest).catch((e) => {
-                    console.log(e);
-                  });
-                }}
-              >
-                Entrar pela Azure
-              </Button>
-            )}
-            <Button
-              variant="contained"
-              color="secondary"
-              fullWidth
-              style={{ marginTop: "10px" }}
-              onClick={() => navigate("/dashboard")}
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <YourSvg style={{ width: '100%', height: 'auto' }} />
+          </Grid>
+          <Grid item xs={6}>
+            <Paper
+              elevation={3}
+              style={{
+                padding: "20px",
+                minHeight: '400px',  // Ajuste essa altura para combinar com o SVG
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              Entrar no Cata-Sucata
-            </Button>
-          </div>
-        </Paper>
+              <Typography component="h1" variant="h5">
+                Cata-Sucata Login
+              </Typography>
+              <div style={{ width: "100%", marginTop: "20px" }}>
+                {isAuthenticated ? (
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    style={{ backgroundColor: "#AD9D8F", marginTop: "10px" }}
+                    onClick={() => {
+                      instance.logoutPopup({
+                        postLogoutRedirectUri: "/",
+                        mainWindowRedirectUri: "/",
+                      });
+                    }}
+                  >
+                    Sair
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    style={{ backgroundColor: "#3F88C5", marginTop: "10px" }}
+                    onClick={() => {
+                      instance.loginPopup(loginRequest).catch((e) => {
+                        console.log(e);
+                      });
+                    }}
+                  >
+                    Entrar pela Azure
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  fullWidth
+                  style={{ backgroundColor: "#A1CF6B", marginTop: "10px" }}
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Entrar no Cata-Sucata
+                </Button>
+              </div>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );
