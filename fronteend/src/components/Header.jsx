@@ -1,13 +1,8 @@
 import React from 'react';
-import { AppBar, Toolbar, Button, Typography } from '@mui/material';
-import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../authConfig";
-import { useIsAuthenticated } from "@azure/msal-react";
+import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
 
-    const { instance } = useMsal();
-    const isAuthenticated = useIsAuthenticated();
 
     return (
         <AppBar position="static" style={{backgroundColor: '#A1CF6B'}} >
