@@ -41,7 +41,7 @@ export const Dashboard = () => {
           novasNotificações.push(`Temos ${qtdDeLixeiras} lixeira(s) cheia(s)! Solicitar a coleta o quanto antes!`);
         }
         
-        //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito
+        //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito, pois o status.unknow está como 0
         if (response.data.status_trash.unknown > 0) {
           novasNotificações.push("Dispositivo com defeito!");
         }
