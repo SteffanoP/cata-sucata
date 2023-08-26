@@ -16,7 +16,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
-  useMsal,
+  
 } from "@azure/msal-react";
 
 const DrawerHeader = styled("div")(({ theme }) => ({

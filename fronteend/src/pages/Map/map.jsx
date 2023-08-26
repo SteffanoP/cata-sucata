@@ -9,7 +9,7 @@ import Sidebar from '../../components/Sidebar';
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
-  useMsal,} from "@azure/msal-react";
+  } from "@azure/msal-react";
 
 const PageMap = () => {
   return (
