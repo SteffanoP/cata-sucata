@@ -12,6 +12,7 @@ import Popover from '@mui/material/Popover';
 
 export default function Navbar({ notifications }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [notificacoesLidas, setNotificacoesLidas] = React.useState(false);
 
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,6 +20,7 @@ export default function Navbar({ notifications }) {
 
   const handleNotificationsClose = () => {
     setAnchorEl(null);
+    setNotificacoesLidas(true);
   };
 
   const isNotificationsOpen = Boolean(anchorEl);
@@ -52,7 +54,7 @@ export default function Navbar({ notifications }) {
               color="inherit"
               onClick={handleNotificationsClick}
             >
-              <Badge badgeContent={notifications.length} color="error">
+              <Badge badgeContent={notificacoesLidas ? 0 : notifications.length} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
