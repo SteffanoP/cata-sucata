@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@azure/msal-react": "^2.0.2"
+  }
+}

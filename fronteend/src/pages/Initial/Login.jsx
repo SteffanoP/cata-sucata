@@ -1,48 +1,97 @@
-import { Link } from 'react-router-dom';
-import { Grid, Box, Paper, Typography, TextField, Button, Divider } from '@mui/material';
-import Header from '../../components/Header';
-import formLogo from './login.svg';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { useMsal } from "@azure/msal-react";
+import { useIsAuthenticated } from "@azure/msal-react";
+import { loginRequest } from "../../authConfig";
+import Header from "../../components/Header";
+import formLogo from './signup.svg';
 
-function Login() {
-    return (
-        <div style={{ height: '100vh' }}>
-            <Header/>
 
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-                <Grid container spacing={2} direction="row">
-                    <Grid item xs={6}>
-                        <img src={formLogo} alt='form-logo' style={{ maxWidth: '100%', height: 'auto' }} />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Paper elevation={3} style={{ padding: '32px', backgroundColor: '#A1CF6B' }}>
-                            <Typography variant="h4" gutterBottom style={{ color: '#E87461' }}>
-                                Login
-                                <Divider style={{ backgroundColor: '#E87461', height: '3px', marginTop: '8px' }} />
-                            </Typography>
-                            <form noValidate autoComplete="off">
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <TextField fullWidth label="Email" variant="outlined" required style={{ backgroundColor: 'white' }} placeholderTextColor="#E0C879"/>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField fullWidth type="password" label="Senha" variant="outlined" required style={{ backgroundColor: 'white' }} placeholderTextColor="#E0C879"/>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Button fullWidth variant="contained" style={{ backgroundColor: '#7AC74F' }} hoverColor="#E87461" component={Link} to="/dashboard">
-                                            Entrar
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </form>
-                            <Typography variant="body1" style={{ marginTop: '16px' }}>
-                                <Link to='/signup' style={{ color: '#E87461' }}>Não possui uma conta? Cadastre-se aqui!</Link>
-                            </Typography>
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Box>
-        </div>
-    );
-}
+const LoginPage = () => {
+  const { instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
 
-export default Login;
+  return (
+    <div>
+      <Header />
+      {/* <Grid item xs={6}>
+        <img
+          src={formLogo}
+          alt="form-logo"
+          style={{ maxWidth: "100%", height: "auto" }}
+        />
+      </Grid> */}
+      <Container
+        component="main"
+        maxWidth="xs"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Paper
+          elevation={3}
+          style={{
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Cata-Sucata Login
+          </Typography>
+          <div style={{ width: "100%", marginTop: "20px" }}>
+            {isAuthenticated ? (
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => {
+                  instance.logoutPopup({
+                    postLogoutRedirectUri: "/",
+                    mainWindowRedirectUri: "/",
+                  });
+                }}
+              >
+                Sair
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => {
+                  instance.loginPopup(loginRequest).catch((e) => {
+                    console.log(e);
+                  });
+                }}
+              >
+                Entrar pela Azure
+              </Button>
+            )}
+            <Button
+              variant="contained"
+              color="secondary"
+              fullWidth
+              style={{ marginTop: "10px" }}
+              onClick={() => navigate("/dashboard")}
+            >
+              Entrar no Cata-Sucata
+            </Button>
+          </div>
+        </Paper>
+      </Container>
+    </div>
+  );
+};
+
+export default LoginPage;

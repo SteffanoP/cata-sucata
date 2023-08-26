@@ -33,7 +33,7 @@ const Sidebar = () => {
       </Box>
       <Divider />
       <List>
-        <ListItem button component={Link} to="/">
+        <ListItem button component={Link} to="/dashboard">
           <ListItemIcon><DashboardIcon /></ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
@@ -49,7 +49,7 @@ const Sidebar = () => {
           <ListItemIcon><SettingsIcon /></ListItemIcon>
           <ListItemText primary="Configurações" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to="/login">
           <ListItemIcon><ExitToAppIcon /></ListItemIcon>
           <ListItemText primary="Sair" />
         </ListItem>
