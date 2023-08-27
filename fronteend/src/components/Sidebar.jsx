@@ -7,10 +7,21 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import cataSucataIcon from '../assets/cata-sucata.png';  // Ajuste o caminho se necessário
 import MapIcon from '@mui/icons-material/Map';
+import { useMsal } from "@azure/msal-react";  // Importe useMsal
+
 
 const drawerWidth = 240;
 
 const Sidebar = () => {
+
+  const { instance } = useMsal(); 
+
+  const handleLogout = () => {
+    instance.logoutPopup({  
+      postLogoutRedirectUri: "/",  
+      mainWindowRedirectUri: "/",  //
+    });
+  };
   return (
     <Drawer
       variant="permanent"
@@ -49,7 +60,7 @@ const Sidebar = () => {
           <ListItemIcon><SettingsIcon /></ListItemIcon>
           <ListItemText primary="Configurações" />
         </ListItem>
-        <ListItem button component={Link} to="/">
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon><ExitToAppIcon /></ListItemIcon>
           <ListItemText primary="Sair" />
         </ListItem>
