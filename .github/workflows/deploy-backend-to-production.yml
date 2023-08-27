@@ -2,7 +2,10 @@ name: Deploy Backend to Production
 
 on:
   push:
-    branches: ["main"]
+    branches: 
+     - "main"
+    paths:
+      - backend/**
   workflow_dispatch:
 
 env:
