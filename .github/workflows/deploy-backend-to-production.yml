@@ -13,7 +13,9 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: 
+      name: production-backend
+      url: https://jolly-river-0f06d4e0f.3.azurestaticapps.net
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v3
