@@ -360,6 +360,7 @@ static void sendTelemetry()
     return;
   }
 
+  strcat(telemetry_topic, "$.ct=application%2Fjson%3Bcharset%3Dutf-8"); //Specifies message encoding and charset
   mqtt_client.publish(telemetry_topic, getTelemetryPayload(), false);
   Serial.println("OK");
   delay(100);
