@@ -10,5 +10,5 @@
 #define IOT_CONFIG_DEVICE_ID "nodemcu"
 #define IOT_CONFIG_DEVICE_KEY ""
 
-// Publish 1 message every 30 seconds
-#define TELEMETRY_FREQUENCY_MILLISECS 30000
+// Publish 1 message every 15 seconds
+#define TELEMETRY_FREQUENCY_MILLISECS 15000
