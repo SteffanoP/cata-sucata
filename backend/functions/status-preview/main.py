@@ -1,10 +1,9 @@
-import asyncio
 import logging
 import json
 
 import azure.functions as func
 
-from shared_code.get_message import get_message
+from shared_code.get_data import get_last_data
 
 payload_response = {
     "devices_info": {
@@ -43,7 +42,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             name = req_body.get('type')
 
     if name == 'raw':
-        msg = asyncio.run(get_message())
+        msg = get_last_data()
         return func.HttpResponse(
             msg,
             mimetype="application/json",
@@ -57,7 +56,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             status_code=200
         )
 
-    msg = asyncio.run(get_message())
+    msg = get_last_data()
     payload = json.loads(msg)
 
     payload_response.update({
