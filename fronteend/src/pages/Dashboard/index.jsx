@@ -50,7 +50,7 @@ export const Dashboard = () => {
         }
         
         //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito, pois o status.unknow está como 0
-        if (response.data.status_trash.unknown > 0) {
+        if (response.data.status_trash.unknown === 0) {
           novasNotificações.push("Temos um dispositivo com defeito!");
         }
 
@@ -71,27 +71,28 @@ export const Dashboard = () => {
   return (
     <div>
       <AuthenticatedTemplate>
-    <Box sx={{ display: "flex" }}>
-      <Sidebar/>
-      <Navbar notifications={notifications}/>
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Navbar notifications={notifications}/>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Container maxWidth="lg">
-          <Grid
-            container
-            spacing={{ lg: 6, md: 3 }}
-            columns={{ xs: 3, sm: 8, md: 10 }}
-            alignItems='center'
-          >
-            {/* Status das lixeiras */}
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 305, maxHeight: 100, borderTop: 5, borderTopColor: "#E87461" }}>
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <DrawerHeader />
+            <Container maxWidth="lg">
+              <Grid
+                container
+                spacing={{ lg: 6, md: 3 }}
+                columns={{ xs: 3, sm: 8, md: 10 }}
+                alignItems="center"
+              >
+                {/* Status das lixeiras */}
+                <Grid item xs={3}>
+                  <Card
+                    sx={{
+                      maxWidth: 305,
+                      maxHeight: 100,
+                      borderTop: 5,
+                      borderTopColor: "#E87461",
+                    }}
                   >
                     <CardContent>
                       <Box
