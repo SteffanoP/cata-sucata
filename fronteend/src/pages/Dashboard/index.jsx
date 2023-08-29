@@ -16,7 +16,6 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
-  
 } from "@azure/msal-react";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -33,32 +32,34 @@ export const Dashboard = () => {
   const [status, setStatus] = useState([]);
   const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    async function getStatus() {
-      try {
-        let response = await axios.get(
-          "https://cata-sucata.azure-api.net/preview/status-preview"
+  const getStatus = async () => {
+    try {
+      let response = await axios.get(
+        "https://cata-sucata.azure-api.net/preview/status-preview"
+      );
+      setStatus(response.data.status_trash);
+      setSensorQtd(response.data.devices_info);
+
+      const novasNotificações = [];
+
+      if (response.data.status_trash.full > 0) {
+        const qtdDeLixeiras = response.data.status_trash.full;
+        novasNotificações.push(
+          `Temos ${qtdDeLixeiras} lixeira(s) cheia(s)! Solicitar a coleta o quanto antes!`
         );
-        setStatus(response.data.status_trash);
-        setSensorQtd(response.data.devices_info);
-
-        const novasNotificações = [];
-
-        if (response.data.status_trash.full > 0) {
-          const qtdDeLixeiras = response.data.status_trash.full;
-          novasNotificações.push(`Temos ${qtdDeLixeiras} lixeira(s) cheia(s)! Solicitar a coleta o quanto antes!`);
-        }
-        
-        //if (response.data.status_trash.unknown === 0) => retorna que tem dispositivo com defeito, pois o status.unknow está como 0
-        if (response.data.status_trash.unknown > 0) {
-          novasNotificações.push("Temos um dispositivo com defeito!");
-        }
-
-        setNotifications(novasNotificações);
-      } catch (error) {
-        console.log("Erro ao buscar dados:", error);
       }
+
+      if (response.data.status_trash.unknown > 0) {
+        novasNotificações.push("Temos um dispositivo com defeito!");
+      }
+
+      setNotifications(novasNotificações);
+    } catch (error) {
+      console.log("Erro ao buscar dados:", error);
     }
+  };
+
+  useEffect(() => {
     getStatus();
 
     const interval = setInterval(() => {
