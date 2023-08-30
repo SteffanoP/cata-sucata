@@ -32,7 +32,7 @@ export const Dashboard = () => {
   const [status, setStatus] = useState([]);
   const [notifications, setNotifications] = useState([]);
 
-  const getStatus = async () => {
+  const fetchData = async () => {
     try {
       let response = await axios.get(
         "https://cata-sucata.azure-api.net/preview/status-preview"
@@ -53,6 +53,11 @@ export const Dashboard = () => {
         novasNotificações.push("Temos um dispositivo com defeito!");
       }
 
+      if (response.data.status_trash.medium > 0) {
+        const qtdDeLixeiras = response.data.status_trash.medium;
+        novasNotificações.push(`Temos ${qtdDeLixeiras} com capacidade média. Em breve solicitar coleta.`);
+      }
+
       setNotifications(novasNotificações);
     } catch (error) {
       console.log("Erro ao buscar dados:", error);
@@ -60,11 +65,11 @@ export const Dashboard = () => {
   };
 
   useEffect(() => {
-    getStatus();
+    fetchData();
 
     const interval = setInterval(() => {
-      getStatus();
-    }, 30000);
+      fetchData();
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
