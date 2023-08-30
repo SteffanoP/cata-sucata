@@ -1,6 +1,6 @@
 import React from 'react';
 import {  CssBaseline,  } from '@mui/material';
-import GoogleMapComponent from '../../components/MapArea';
+// import GoogleMapComponent from '../../components/MapArea';
 import RightSidebar from '../../components/RightSidebar';
 import {  ListItem, ListItemIcon, ListItemText,  } from '@mui/material';
 import { Link } from 'react-router-dom';
