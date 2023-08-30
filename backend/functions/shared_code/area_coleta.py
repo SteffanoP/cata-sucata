@@ -17,3 +17,14 @@ class AreaColeta(object):
         self.latitude = coords[0]
         self.longitude = coords[1]
         self.tamanho = tamanho
+
+    def insert(self):
+        """Insere a área de coleta no banco de dados Azure.
+        """
+        item = {
+            'nome': self.nome,
+            'latitude': str(self.latitude),
+            'longitude': str(self.longitude),
+            'tamanho': self.tamanho
+        }
+        container.create_item(item, enable_automatic_id_generation=True)
