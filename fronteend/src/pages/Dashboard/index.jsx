@@ -55,7 +55,7 @@ export const Dashboard = () => {
 
       if (response.data.status_trash.medium > 0) {
         const qtdDeLixeiras = response.data.status_trash.medium;
-        novasNotificações.push(`Temos ${qtdDeLixeiras} com capacidade média. Em breve solicitar coleta.`);
+        novasNotificações.push(`Temos ${qtdDeLixeiras} lixeira(s) com capacidade média. Em breve solicitar coleta.`);
       }
 
       setNotifications(novasNotificações);
@@ -69,7 +69,7 @@ export const Dashboard = () => {
 
     const interval = setInterval(() => {
       fetchData();
-    }, 3000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);

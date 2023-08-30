@@ -9,10 +9,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MuiAppBar from "@mui/material/AppBar";
 import Popover from '@mui/material/Popover';
+import { useNotifications } from './NotificationsContext';
 
 export default function Navbar({ notifications }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [notificacoesLidas, setNotificacoesLidas] = React.useState(false);
+  const {notificacoesLidas, setNotificacoesLidas} = useNotifications();
 
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
