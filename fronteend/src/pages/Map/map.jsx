@@ -10,6 +10,7 @@ import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
   } from "@azure/msal-react";
+import NewMapArea from '../../components/NewMapArea';
 
 const PageMap = () => {
   return (
@@ -21,7 +22,8 @@ const PageMap = () => {
           <Sidebar />
 
           <main style={{ flexGrow: 1, padding: "16px" }}>
-            <GoogleMapComponent />
+            {/* <GoogleMapComponent /> */}
+            <NewMapArea/>
           </main>
           <RightSidebar />
         </div>
