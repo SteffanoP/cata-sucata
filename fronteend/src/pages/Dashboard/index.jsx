@@ -16,7 +16,6 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
-  
 } from "@azure/msal-react";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -31,37 +30,56 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export const Dashboard = () => {
   const [sensorQtd, setSensorQtd] = useState([]);
   const [status, setStatus] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      let response = await axios.get(
+        "https://cata-sucata.azure-api.net/preview/status-preview"
+      );
+      setStatus(response.data.status_trash);
+      setSensorQtd(response.data.devices_info);
+
+      const novasNotificações = [];
+
+      if (response.data.status_trash.full > 0) {
+        const qtdDeLixeiras = response.data.status_trash.full;
+        novasNotificações.push(
+          `Temos ${qtdDeLixeiras} lixeira(s) cheia(s)! Solicitar a coleta o quanto antes!`
+        );
+      }
+
+      if (response.data.status_trash.unknown > 0) {
+        novasNotificações.push("Temos um dispositivo com defeito!");
+      }
+
+      if (response.data.status_trash.medium > 0) {
+        const qtdDeLixeiras = response.data.status_trash.medium;
+        novasNotificações.push(`Temos ${qtdDeLixeiras} lixeira(s) com capacidade média. Em breve solicitar coleta.`);
+      }
+
+      setNotifications(novasNotificações);
+    } catch (error) {
+      console.log("Erro ao buscar dados:", error);
+    }
+  };
 
   useEffect(() => {
-    async function getStatus() {
-      try {
-        let response = await axios.get(
-          "https://cata-sucata.azure-api.net/preview/status-preview"
-        );
-        //console.log(response.data.status_trash);
-        setStatus(response.data.status_trash);
-        setSensorQtd(response.data.devices_info);
-      } catch (error) {
-        console.log("Erro ao buscar dados:", error);
-      }
-    }
-    getStatus();
+    fetchData();
 
     const interval = setInterval(() => {
-      //console.log("Requisição!");
-      getStatus();
+      fetchData();
     }, 30000);
 
     return () => clearInterval(interval);
   }, []);
-  //console.log(status.full);
 
   return (
     <div>
       <AuthenticatedTemplate>
         <Box sx={{ display: "flex" }}>
           <Sidebar />
-          <Navbar />
+          <Navbar notifications={notifications}/>
 
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <DrawerHeader />

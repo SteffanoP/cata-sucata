@@ -8,8 +8,24 @@ import Badge from '@mui/material/Badge';
 import AccountCircle from '@mui/icons-material/AccountCircle'; 
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MuiAppBar from "@mui/material/AppBar";
+import Popover from '@mui/material/Popover';
+import { useNotifications } from './NotificationsContext';
 
-export default function Navbar() {
+export default function Navbar({ notifications }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const {notificacoesLidas, setNotificacoesLidas} = useNotifications();
+
+  const handleNotificationsClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationsClose = () => {
+    setAnchorEl(null);
+    setNotificacoesLidas(true);
+  };
+
+  const isNotificationsOpen = Boolean(anchorEl);
+  const notificationsId = isNotificationsOpen ? 'notifications-popover' : undefined;
 
   const AppBar = styled(MuiAppBar)(({ theme }) => ({
     background: "none",
@@ -24,34 +40,59 @@ export default function Navbar() {
     <AppBar position="fixed">
       <Toolbar>
         <Box sx={{ display: "flex" }} alignItems={"center"}>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ display: { xs: 'none', sm: 'block' } }}
-        >
-          Hoje |
-        </Typography>
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <IconButton
-            size="large"
-            aria-label="mostra 3 notificações"
-            color="inherit"
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <Badge badgeContent={3} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-        </Box>
+            Hoje |
+          </Typography>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton
+              size="large"
+              aria-label="mostra 3 notificações"
+              color="inherit"
+              onClick={handleNotificationsClick}
+            >
+              <Badge badgeContent={notificacoesLidas ? 0 : notifications.length} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Popover
+              id={notificationsId}
+              open={isNotificationsOpen}
+              anchorEl={anchorEl}
+              onClose={handleNotificationsClose}
+              anchorReference="anchorPosition"
+              anchorPosition={{
+                top: anchorEl ? anchorEl.getBoundingClientRect().bottom : 0,
+                left: anchorEl
+                  ? anchorEl.getBoundingClientRect().left +
+                    anchorEl.getBoundingClientRect().width / 2
+                  : 0,
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              {notifications.map((notification, index) => (
+                <Typography key={index} sx={{ p: 2 }}>
+                  {notification}
+                </Typography>
+              ))}
+            </Popover>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>
