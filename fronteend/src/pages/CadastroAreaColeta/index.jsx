@@ -19,7 +19,7 @@ export const CadastroAreaColeta = () => {
   })
 
   const [lixeira, setLixeira] = useState({
-    nome: '', categoria: 'Pública'
+    nomeAreaColeta: ''
   })
 
   const [successMessage, setSuccessMessage] = useState('')
@@ -27,30 +27,32 @@ export const CadastroAreaColeta = () => {
   const handleAreaColetaChange = (event) => {
     const { name, value } = event.target
     setAreaColeta({
-      ...areaColeta, [name]: value,
+      ...areaColeta, [name]: value
     })
   }
 
   const handleLixeiraChange = (event) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     setLixeira({
       ...lixeira, [name]: value
     })
   }
 
   const handleAreaColetaSubmit = () => {
-    // Fazer um método POST para o backend com os dados das informações inseridas
+    // Fazer método para fazer um POST para o banco de dados do backend com as informações do cadastro da área de coleta
     setSuccessMessage('Área de coleta cadastrada com sucesso!')
+
     setTimeout(() => {
-      setSuccessMessage('');
+      setSuccessMessage('')
     }, 3000)
   }
 
   const handleLixeiraSubmit = () => {
-    // Fazer um método POST para o backend com os dados das informações inseridas
-    setSuccessMessage('Lixeira cadastrada com sucesso!');
+    // Fazer método para fazer um POST para o banco de dados do backend com as informações do cadastro da lixeira em uma área de coleta existente
+    setSuccessMessage(`Lixeira cadastrada na área de coleta: ${lixeira.nomeAreaColeta}`)
+    
     setTimeout(() => {
-      setSuccessMessage('');
+      setSuccessMessage('')
     }, 3000)
   }
 
@@ -104,13 +106,13 @@ export const CadastroAreaColeta = () => {
                   />
                 </Grid>
               </Grid>
-              <p/>
+              <p />
               <Button variant="contained" color="success" onClick={handleAreaColetaSubmit}>
                 Cadastrar
               </Button>
             </Paper>
 
-            <Paper elevation={3} style={{ padding: '20px', marginTop: '40px'}}>
+            <Paper elevation={3} style={{ padding: '20px', marginTop: '40px' }}>
               <Typography variant="h5" gutterBottom>
                 Cadastrar lixeira em área de coleta existente
               </Typography>
@@ -118,7 +120,7 @@ export const CadastroAreaColeta = () => {
                 <Grid item xs={6}>
                   <TextField
                     name="nome"
-                    label="Nome da área"
+                    label="Nome da área de coleta existente"
                     fullWidth
                     value={lixeira.nome}
                     onChange={handleLixeiraChange}
@@ -129,7 +131,7 @@ export const CadastroAreaColeta = () => {
                     <InputLabel>Categoria</InputLabel>
                     <Select
                       name="categoria"
-                      marginTop= "20px"
+                      marginTop="20px"
                       value={lixeira.categoria}
                       onChange={handleLixeiraChange}
                     >
@@ -139,7 +141,7 @@ export const CadastroAreaColeta = () => {
                   </FormControl>
                 </Grid>
               </Grid>
-              <p/>
+              <p />
               <Button variant="contained" color="success" onClick={handleLixeiraSubmit}>
                 Cadastrar
               </Button>
@@ -154,5 +156,5 @@ export const CadastroAreaColeta = () => {
         </Paper>
       )}
     </Container>
-  )
-}
+  );
+};
