@@ -1,6 +1,8 @@
 /* global google */
 import React, { useState, useEffect, useRef } from "react";
 import { GoogleMapsProvider, useGoogleMap } from "@ubilabs/google-maps-react-hooks";
+//import { createRoot } from 'react-dom/client';
+import '../styles/global.css';
 
 const mapOptions = {
   zoom: 12,
@@ -12,6 +14,7 @@ const mapOptions = {
 
 function NewMapArea() {
   const [mapContainer, setMapContainer] = useState(null);
+  //const map = useGoogleMap();
 
   return (
     <GoogleMapsProvider
@@ -21,9 +24,79 @@ function NewMapArea() {
     >
       <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
       <Location />
+      {/* <Weather map={map}/> */}
     </GoogleMapsProvider>
   );
 }
+
+// Isso abaixo é apenas um teste que estou trabalhando
+// const weatherData = {
+//   A: {
+//     name: "Toronto",
+//     position: { lat: 43.66293, lng: -79.39314 },
+//     climate: "Raining",
+//     temp: 20,
+//     fiveDay: [15, 18, 12, 22, 20],
+//   },
+//   B: {
+//     name: "Guelph",
+//     position: { lat: 43.544811, lng: -80.248108 },
+//     climate: "Cloudy",
+//     temp: 20,
+//     fiveDay: [15, 18, 12, 22, 20],
+//   },
+//   C: {
+//     name: "Orangeville",
+//     position: { lat: 43.919239, lng: -80.097412 },
+//     climate: "Sunny",
+//     temp: 20,
+//     fiveDay: [15, 18, 12, 22, 20],
+//   },
+// };
+
+// function Weather({ map }) {
+//   const [data, setData] = useState(weatherData);
+//   // const [highlight, setHighlight] = useState();
+//   // const [editing, setEditing] = useState();
+
+//   return(
+//     <>
+//       {Object.entries(data).map(([key, weather]) => (
+//         <Marker key={key} map={map} position={weather.position}>
+//           <div className={'marker'}>
+//             <h2>{weather.climate}</h2>
+//           </div>
+//         </Marker>
+//       ))}
+//     </>
+//   );
+// }
+
+// function Marker({ map, children, position }) {
+//   const markerRef = useRef();
+//   const rootRef = useRef();
+
+//   useEffect(() => {
+//     if (!rootRef.current) {
+//       const container = document.createElement("div");
+//       rootRef.current = createRoot(container);
+
+//       markerRef.current = new google.maps.Marker({
+//         position,
+//         content: container,
+//       });
+//     }
+//     return () => (markerRef.current.map = null);
+//   }, []);
+
+//   useEffect(() => {
+//     rootRef.current.render(children);
+//     markerRef.current.position = position;
+//     markerRef.current.map = map;
+//     //const listener = markerRef.current.addListener("click", onClick);
+//     //return () => listener.remove();
+//   }, [map, position, children]);
+// }
 
 function Location() {
   const [lat, setLat] = useState(-8.0522);
