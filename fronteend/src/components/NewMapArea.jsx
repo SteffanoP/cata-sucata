@@ -1,33 +1,78 @@
 /* global google */
 import React, { useState, useEffect, useRef } from "react";
-import { GoogleMapsProvider, useGoogleMap } from "@ubilabs/google-maps-react-hooks";
-import Location from "./Location";
-//import { createRoot } from 'react-dom/client';
-import '../styles/global.css';
+import { GoogleMapsProvider, useGoogleMap } from '@ubilabs/google-maps-react-hooks';
+import { useFavorites } from './FavoritesContext'; // Importação do contexto de favoritos
+import trashIcon from "../assets/trash.png";
 
 const mapOptions = {
-  zoom: 12,
-  center: {
-    lat: -8.0522,
-    lng: -34.9286,
-  },
+    zoom: 12,
+    center: {
+        lat: -8.0522,
+        lng: -34.9286
+    },
 };
 
 function NewMapArea() {
-  const [mapContainer, setMapContainer] = useState(null);
-  //const map = useGoogleMap();
+    const [mapContainer, setMapContainer] = useState(null);
+    const { favorites, colectAreas } = useFavorites(); // Uso do contexto de favoritos
 
-  return (
-    <GoogleMapsProvider
-      googleMapsAPIKey="AIzaSyC7wmmdu6ma7gtXlxsrw2aKwPiTbi46OLY"
-      mapOptions={mapOptions}
-      mapContainer={mapContainer}
-    >
-      <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
-      <Location />
-      {/* <Weather map={map}/> */}
-    </GoogleMapsProvider>
-  );
+    return (
+        <GoogleMapsProvider 
+            googleMapsAPIKey="AIzaSyC7wmmdu6ma7gtXlxsrw2aKwPiTbi46OLY"
+            mapOptions={mapOptions}
+            mapContainer={mapContainer}
+        >
+            <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
+            <Location favorites={favorites} colectAreas={colectAreas} />
+        </GoogleMapsProvider>
+    );
+}
+
+function Location({ favorites, colectAreas }) {
+    const [lat, setLat] = useState(-8.0);
+    const [lng, setLng] = useState(-34.9);
+    const map = useGoogleMap();
+    const markerRef = useRef(null);
+
+    useEffect(() => {
+      if (typeof window.google === "undefined" || !map || markerRef.current) return;
+      markerRef.current = new google.maps.Marker({
+        map,
+        icon: trashIcon // ou a URL para seu ícone personalizado
+      });
+    }, [map]);
+    
+    useEffect(() => {
+      if (typeof window.google === "undefined" || !markerRef.current) return;
+      if (isNaN(lat) || isNaN(lng)) return;
+      markerRef.current.setPosition({ lat, lng });
+      map.panTo({ lat, lng });
+    }, [lat, lng, map]);
+    
+    useEffect(() => {
+      if (typeof window.google === "undefined" || !map) return;
+      
+      favorites.forEach((fav) => {
+        new google.maps.Marker({
+          map,
+          position: { lat: parseFloat(fav.latitude), lng: parseFloat(fav.longitude) },
+          icon: trashIcon // ou a URL para seu ícone de favorito
+        });
+      });
+
+      // Adicionando markers para colectAreas
+      colectAreas.forEach((area) => {
+        new google.maps.Marker({
+          map,
+          position: { lat: parseFloat(area.latitude), lng: parseFloat(area.longitude) },
+          icon: trashIcon // ou a URL para seu ícone personalizado
+        });
+      });
+    }, [favorites, colectAreas, map]);
+
+    return (
+        <div></div>
+    );
 }
 
 // Isso abaixo é apenas um teste que estou trabalhando
