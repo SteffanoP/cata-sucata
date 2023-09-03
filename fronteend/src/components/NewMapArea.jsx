@@ -1,6 +1,7 @@
 /* global google */
 import React, { useState, useEffect, useRef } from "react";
 import { GoogleMapsProvider, useGoogleMap } from "@ubilabs/google-maps-react-hooks";
+import Location from "./Location";
 //import { createRoot } from 'react-dom/client';
 import '../styles/global.css';
 
@@ -98,49 +99,49 @@ function NewMapArea() {
 //   }, [map, position, children]);
 // }
 
-function Location() {
-  const [lat, setLat] = useState(-8.0522);
-  const [lng, setLng] = useState(-34.9286);
-  const map = useGoogleMap();
-  const markerRef = useRef();
+// function Location() {
+//   const [lat, setLat] = useState(-8.0522);
+//   const [lng, setLng] = useState(-34.9286);
+//   const map = useGoogleMap();
+//   const markerRef = useRef();
 
-  useEffect(() => {
-    if (map && !window.google) {
-      console.error("Google Maps API não carregada");
-      return;
-    }
+//   useEffect(() => {
+//     if (map && !window.google) {
+//       console.error("Google Maps API não carregada");
+//       return;
+//     }
 
-    if (map && !markerRef.current) {
-      markerRef.current = new google.maps.Marker({
-        position: { lat, lng },
-        map: map,
-      });
-    }
-  }, [map, lat, lng]);
+//     if (map && !markerRef.current) {
+//       markerRef.current = new google.maps.Marker({
+//         position: { lat, lng },
+//         map: map,
+//       });
+//     }
+//   }, [map, lat, lng]);
 
-  useEffect(() => {
-    if (markerRef.current && !isNaN(lat) && !isNaN(lng)) {
-      markerRef.current.setPosition(new google.maps.LatLng(lat, lng));
-      map.panTo(new google.maps.LatLng(lat, lng));
-    }
-  }, [lat, lng, map]);
+//   useEffect(() => {
+//     if (markerRef.current && !isNaN(lat) && !isNaN(lng)) {
+//       markerRef.current.setPosition(new google.maps.LatLng(lat, lng));
+//       map.panTo(new google.maps.LatLng(lat, lng));
+//     }
+//   }, [lat, lng, map]);
 
-  return (
-    <div className="lat-lng">
-      <input
-        type="number"
-        value={lat}
-        onChange={(event) => setLat(parseFloat(event.target.value))}
-        step={0.01}
-      />
-      <input
-        type="number"
-        value={lng}
-        onChange={(event) => setLng(parseFloat(event.target.value))}
-        step={0.01}
-      />
-    </div>
-  );
-}
+//   return (
+//     <div className="lat-lng">
+//       {/* <input
+//         type="number"
+//         value={lat}
+//         onChange={(event) => setLat(parseFloat(event.target.value))}
+//         step={0.01}
+//       />
+//       <input
+//         type="number"
+//         value={lng}
+//         onChange={(event) => setLng(parseFloat(event.target.value))}
+//         step={0.01}
+//       /> */}
+//     </div>
+//   );
+// }
 
 export default NewMapArea;
