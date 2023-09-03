@@ -11,6 +11,7 @@ import {Select} from '@mui/material';
 import {MenuItem} from '@mui/material';
 import {Grid} from '@mui/material';
 import {Box} from '@mui/material';
+import axios from 'axios';
 
 
 export const CadastroAreaColeta = () => {
@@ -39,13 +40,20 @@ export const CadastroAreaColeta = () => {
   }
 
   const handleAreaColetaSubmit = () => {
-    // Fazer método para fazer um POST para o banco de dados do backend com as informações do cadastro da área de coleta
-    setSuccessMessage('Área de coleta cadastrada com sucesso!')
+    axios
+      .post('https://cata-sucata.azure-api.net/preview/create-areacoleta', areaColeta).then((response) => {
+        console.log(response.data);
+        setSuccessMessage('Área de coleta cadastrada com sucesso!');
 
+      }).catch((error) => {
+        console.error(error);
+      });
+      
+  
     setTimeout(() => {
-      setSuccessMessage('')
-    }, 3000)
-  }
+      setSuccessMessage('');
+    }, 3000);
+  };
 
   const handleLixeiraSubmit = () => {
     // Fazer método para fazer um POST para o banco de dados do backend com as informações do cadastro da lixeira em uma área de coleta existente
@@ -108,7 +116,7 @@ export const CadastroAreaColeta = () => {
               </Grid>
               <p />
               <Button variant="contained" color="success" onClick={handleAreaColetaSubmit}>
-                Cadastrar
+                 Cadastrar
               </Button>
             </Paper>
 
