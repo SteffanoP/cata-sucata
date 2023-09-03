@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Drawer, List, ListItem, TextField, Divider, IconButton } from '@mui/material';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+import Location from './Location';
 
 const RightSidebar = () => {
   const [search, setSearch] = useState('');
@@ -38,8 +39,9 @@ const RightSidebar = () => {
   };
 
   // Essa função deve se comunicar com a função LOCATION encontrada no arquivo NewMapArea.jsx,
-  // pois dessa forma LOCATION poderá receber as coordenadas da área de coleta e mostrar no mapa.
+  // pois, dessa forma, LOCATION poderá receber as coordenadas da área de coleta e mostrar no mapa.
   function handleAreaView(latitude, longitude) {
+    <Location lati={latitude} long={longitude}/>
     console.log("Funcionou!", latitude, "e", longitude);
   }
 
