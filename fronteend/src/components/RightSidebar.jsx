@@ -8,7 +8,7 @@ const RightSidebar = () => {
   const [search, setSearch] = useState('');
   const [favoritedBins, setFavoritedBins] = useState({});
   
-  const { colectAreas, addFavorite, removeFavorite } = useFavorites(); // Utilize o hook aqui
+  const { colectAreas, addFavorite, removeFavorite, showAreaLocation } = useFavorites(); // Utilize o hook aqui
 
   const toggleFavorite = (bin) => {
     setFavoritedBins(prev => ({
@@ -23,6 +23,9 @@ const RightSidebar = () => {
     }
   };
 
+  const handleLocation = (area) => {
+    showAreaLocation(area);
+  };
 
   return (
     <Drawer
@@ -47,7 +50,7 @@ const RightSidebar = () => {
       <Divider />
       <List>
         {colectAreas.map((item) => (  // Alterado de colectArea para colectAreas
-          <ListItem key={item.id}>
+          <ListItem key={item.id} onClick={() => handleLocation(item)}>
             {item.nome}
             <IconButton onClick={() => toggleFavorite(item)}>
               {colectAreas.some(fav => fav.id === item.id) ? <StarIcon color="primary" /> : <StarBorderIcon />} 
