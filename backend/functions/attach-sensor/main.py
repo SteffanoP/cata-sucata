@@ -3,6 +3,7 @@ import azure.functions as func
 
 from shared_code.get_data import get_gateways
 from shared_code.area_coleta import AreaColeta
+from shared_code.sensor import Sensor
 
 # TODO: Testar verificação de gateway
 def verify_gateway(gateway: str | None) -> bool:
@@ -28,8 +29,8 @@ def verify_areacoleta(name_areacoleta: str | None) -> bool:
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     body = req.get_json()
-    gateway = body['gateway'] if body['gateway'] else None
-    name_areacoleta = body['areacoleta'] if body['areacoleta'] else None
+    gateway = body.get('gateway') or None
+    name_areacoleta = body.get('areacoleta') or None
 
     if not verify_gateway(gateway):
         func.HttpResponse(
@@ -42,11 +43,22 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             "AreaColeta not found",
             status_code=400
         )
+    
+    sensors = Sensor.list_with_partition(gateway)
+    area = AreaColeta.get_nome(name_areacoleta)
+    # area_sensors = area[0].get('sensors') or []
 
+    for sensor in sensors:
+        sensor['areacoleta'] = name_areacoleta
+        Sensor.upsert(sensor)
+        # area_sensors.append(gateway)
+    # area[0]['sensors'] = area_sensors
+    # AreaColeta.upsert(area[0])
     # TODO: Add the item into container
     # TODO: Return successfull
-    # return func.HttpResponse(
-    #     body=json.dumps(items),
-    #     mimetype='application/json',
-    #     status_code=200
-    # )
+    
+    return func.HttpResponse(
+        body=json.dumps(sensors),
+        mimetype='application/json',
+        status_code=200
+    )
