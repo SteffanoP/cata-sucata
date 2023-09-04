@@ -14,7 +14,7 @@ const mapOptions = {
 
 function NewMapArea() {
     const [mapContainer, setMapContainer] = useState(null);
-    const { favorites, colectAreas } = useFavorites(); // Uso do contexto de favoritos
+    const { favorites, colectAreas, selectedArea } = useFavorites(); // Uso do contexto de favoritos
 
     return (
         <GoogleMapsProvider 
@@ -23,17 +23,20 @@ function NewMapArea() {
             mapContainer={mapContainer}
         >
             <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
-            <Location favorites={favorites} colectAreas={colectAreas} />
+            <Location favorites={favorites} colectAreas={colectAreas} selectedArea={selectedArea}/>
         </GoogleMapsProvider>
     );
 }
 
-function Location({ favorites, colectAreas }) {
+function Location({ favorites, colectAreas, selectedArea }) {
     const [lat, setLat] = useState(-8.0);
     const [lng, setLng] = useState(-34.9);
     const map = useGoogleMap();
     const markerRef = useRef(null);
-
+   
+    console.log(parseFloat(selectedArea.latitude));
+    console.log(parseFloat(selectedArea.longitude));
+    
     useEffect(() => {
       if (typeof window.google === "undefined" || !map || markerRef.current) return;
       markerRef.current = new google.maps.Marker({
@@ -45,9 +48,12 @@ function Location({ favorites, colectAreas }) {
     useEffect(() => {
       if (typeof window.google === "undefined" || !markerRef.current) return;
       if (isNaN(lat) || isNaN(lng)) return;
+      if (selectedArea.length !== 0) {
+        map.panTo({ lat: parseFloat(selectedArea.latitude), lgn: parseFloat(selectedArea.longitude) });
+      }
       markerRef.current.setPosition({ lat, lng });
       map.panTo({ lat, lng });
-    }, [lat, lng, map]);
+    }, [lat, lng, map, selectedArea]);
     
     useEffect(() => {
       if (typeof window.google === "undefined" || !map) return;
