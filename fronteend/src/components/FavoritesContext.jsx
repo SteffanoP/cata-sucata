@@ -15,6 +15,7 @@ export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [colectAreas, setColectAreas] = useState([]); // novo estado
   const [selectedArea, setSelectedArea] = useState([]);
+  const [zoomLevel, setZoomLevel] = useState(21); 
 
   // Funções para gerenciar favoritos
   const addFavorite = (item) => {
@@ -53,13 +54,15 @@ export const FavoritesProvider = ({ children }) => {
         favorites, 
         addFavorite, 
         removeFavorite,
-        colectAreas, // novo valor
-        setColectAreas, // nova função de configuração
+        zoomLevel,
+        setZoomLevel,
+        colectAreas,
+        setColectAreas,
         showAreaLocation,
         selectedArea
       }}
     >
       {children}
     </FavoritesContext.Provider>
-  );
+);
 };

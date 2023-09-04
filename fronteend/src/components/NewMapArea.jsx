@@ -5,21 +5,22 @@ import { useFavorites } from './FavoritesContext'; // Importação do contexto d
 import trashIcon from "../assets/trash.png";
 
 const mapOptions = {
-    zoom: 12,
-    center: {
-        lat: -8.0522,
-        lng: -34.9286
-    },
+  zoom: 18,
+  center: {
+      lat: -8.0522,
+      lng: -2.9286
+  },
 };
+
 
 function NewMapArea() {
     const [mapContainer, setMapContainer] = useState(null);
     const { favorites, colectAreas, selectedArea } = useFavorites(); // Uso do contexto de favoritos
-
+    const { zoomLevel, setZoomLevel } = useFavorites();
     return (
         <GoogleMapsProvider 
             googleMapsAPIKey="AIzaSyC7wmmdu6ma7gtXlxsrw2aKwPiTbi46OLY"
-            mapOptions={mapOptions}
+            mapOptions={{...mapOptions, zoom: zoomLevel }}
             mapContainer={mapContainer}
         >
             <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
@@ -49,10 +50,10 @@ function Location({ favorites, colectAreas, selectedArea }) {
       if (typeof window.google === "undefined" || !markerRef.current) return;
       if (isNaN(lat) || isNaN(lng)) return;
       if (selectedArea.length !== 0) {
-        map.panTo({ lat: parseFloat(selectedArea.latitude), lgn: parseFloat(selectedArea.longitude) });
+        map.panTo({ lat: parseFloat(selectedArea.latitude), lng: parseFloat(selectedArea.longitude) });
       }
       markerRef.current.setPosition({ lat, lng });
-      map.panTo({ lat, lng });
+      
     }, [lat, lng, map, selectedArea]);
     
     useEffect(() => {

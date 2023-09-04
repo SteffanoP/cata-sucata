@@ -8,7 +8,7 @@ const RightSidebar = () => {
   const [search, setSearch] = useState('');
   const [favoritedBins, setFavoritedBins] = useState({});
   
-  const { colectAreas, addFavorite, removeFavorite, showAreaLocation } = useFavorites(); // Utilize o hook aqui
+  const { colectAreas, addFavorite, removeFavorite, showAreaLocation, setZoomLevel } = useFavorites(); // Utilize o hook aqui
 
   const toggleFavorite = (bin) => {
     setFavoritedBins(prev => ({
@@ -25,7 +25,8 @@ const RightSidebar = () => {
 
   const handleLocation = (area) => {
     showAreaLocation(area);
-  };
+    setZoomLevel(21); // Este é apenas um exemplo de nível de zoom, ajuste conforme a necessidade.
+};
 
   return (
     <Drawer
