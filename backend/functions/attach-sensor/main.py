@@ -33,13 +33,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     name_areacoleta = body.get('areacoleta') or None
 
     if not verify_gateway(gateway):
-        func.HttpResponse(
+        return func.HttpResponse(
             "Gateway not found",
             status_code=400
         )
     
     if not verify_areacoleta(name_areacoleta):
-        func.HttpResponse(
+        return func.HttpResponse(
             "AreaColeta not found",
             status_code=400
         )
