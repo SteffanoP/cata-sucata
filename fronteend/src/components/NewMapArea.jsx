@@ -5,10 +5,10 @@ import { useFavorites } from './FavoritesContext'; // Importação do contexto d
 import trashIcon from "../assets/trash.png";
 
 const mapOptions = {
-  zoom: 18,
+  zoom: 8,
   center: {
-      lat: -8.0522,
-      lng: -2.9286
+      lat: -8.0476,
+      lng: -34.8770
   },
 };
 
@@ -30,8 +30,7 @@ function NewMapArea() {
 }
 
 function Location({ favorites, colectAreas, selectedArea }) {
-    const [lat, setLat] = useState(-8.0);
-    const [lng, setLng] = useState(-34.9);
+
     const map = useGoogleMap();
     const markerRef = useRef(null);
    
@@ -48,13 +47,16 @@ function Location({ favorites, colectAreas, selectedArea }) {
     
     useEffect(() => {
       if (typeof window.google === "undefined" || !markerRef.current) return;
-      if (isNaN(lat) || isNaN(lng)) return;
-      if (selectedArea.length !== 0) {
-        map.panTo({ lat: parseFloat(selectedArea.latitude), lng: parseFloat(selectedArea.longitude) });
+      if (selectedArea && selectedArea.latitude && selectedArea.longitude) {
+        const newLat = parseFloat(selectedArea.latitude);
+        const newLng = parseFloat(selectedArea.longitude);
+        
+        if (!isNaN(newLat) && !isNaN(newLng)) {
+          markerRef.current.setPosition({ lat: newLat, lng: newLng });
+          map.panTo({ lat: newLat, lng: newLng });
+        }
       }
-      markerRef.current.setPosition({ lat, lng });
-      
-    }, [lat, lng, map, selectedArea]);
+    }, [map, selectedArea]);
     
     useEffect(() => {
       if (typeof window.google === "undefined" || !map) return;

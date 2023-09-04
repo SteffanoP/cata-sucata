@@ -15,7 +15,7 @@ export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [colectAreas, setColectAreas] = useState([]); // novo estado
   const [selectedArea, setSelectedArea] = useState([]);
-  const [zoomLevel, setZoomLevel] = useState(21); 
+  const [zoomLevel, setZoomLevel] = useState(14); 
 
   // Funções para gerenciar favoritos
   const addFavorite = (item) => {
