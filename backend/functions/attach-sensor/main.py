@@ -46,14 +46,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     
     sensors = Sensor.list_with_partition(gateway)
     area = AreaColeta.get_nome(name_areacoleta)
-    # area_sensors = area[0].get('sensors') or []
+    area_sensors = area[0].get('sensors') or []
 
     for sensor in sensors:
         sensor['areacoleta'] = name_areacoleta
         Sensor.upsert(sensor)
-        # area_sensors.append(gateway)
-    # area[0]['sensors'] = area_sensors
-    # AreaColeta.upsert(area[0])
+
+        if gateway not in area_sensors:
+            area_sensors.append(gateway)
+            
+    area[0]['sensors'] = area_sensors
+    AreaColeta.upsert(area[0])
     # TODO: Add the item into container
     # TODO: Return successfull
     
