@@ -14,6 +14,7 @@ export const useFavorites = () => {
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [colectAreas, setColectAreas] = useState([]); // novo estado
+  const [selectedArea, setSelectedArea] = useState([]);
 
   // Funções para gerenciar favoritos
   const addFavorite = (item) => {
@@ -23,6 +24,15 @@ export const FavoritesProvider = ({ children }) => {
   const removeFavorite = (item) => {
     setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.id !== item.id));
   };
+
+  const showAreaLocation = (item) => {
+    colectAreas.forEach((areaMatch) => {
+      if(areaMatch.id === item.id){
+        setSelectedArea(item);
+      }
+    });
+  };
+  console.log(selectedArea);
 
   // Função para buscar dados de colectAreas da API
   useEffect(() => {
@@ -44,7 +54,9 @@ export const FavoritesProvider = ({ children }) => {
         addFavorite, 
         removeFavorite,
         colectAreas, // novo valor
-        setColectAreas // nova função de configuração
+        setColectAreas, // nova função de configuração
+        showAreaLocation,
+        selectedArea
       }}
     >
       {children}
