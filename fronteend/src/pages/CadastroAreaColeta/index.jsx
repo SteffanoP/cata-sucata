@@ -56,13 +56,20 @@ export const CadastroAreaColeta = () => {
   };
 
   const handleLixeiraSubmit = () => {
-    // Fazer método para fazer um POST para o banco de dados do backend com as informações do cadastro da lixeira em uma área de coleta existente
-    setSuccessMessage(`Lixeira cadastrada na área de coleta: ${lixeira.nomeAreaColeta}`)
-    
+    axios
+      .post('https://cata-sucata.azure-api.net/preview/', {
+        ...lixeira,categoria: lixeira.categoria }).then((response) => {
+        console.log(response.data);
+        setSuccessMessage(`Lixeira cadastrada na área de coleta: ${lixeira.nomeAreaColeta}`)
+      }).catch((error) => {
+        console.error(error);
+      });
+  
     setTimeout(() => {
-      setSuccessMessage('')
-    }, 3000)
-  }
+      setSuccessMessage('');
+    }, 3000);
+  };
+  
 
   return (
     <Container style={{ marginTop: '5%' }}>
