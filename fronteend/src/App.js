@@ -4,6 +4,7 @@ import './App.css';
 import PageMap from './pages/Map/map';
 import Login from './pages/Login/Login';
 import { NotificationsProvider } from './components/NotificationsContext';
+import { CadastroAreaColeta } from './pages/CadastroAreaColeta';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route element={ <Login/> } path='/login'/>
         <Route element={ <Login/> } path='/'/>
         <Route element={ <PageMap/> } path='/map'/>
+        <Route element={ <CadastroAreaColeta/> } path='/settings'/>
       </Routes>
     </BrowserRouter>
     </NotificationsProvider>
