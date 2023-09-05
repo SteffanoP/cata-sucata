@@ -8,6 +8,11 @@ import {Button} from '@mui/material';
 import {Grid} from '@mui/material';
 import {Box} from '@mui/material';
 import axios from 'axios';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 
 export const CadastroAreaColeta = () => {
@@ -151,6 +156,31 @@ export const CadastroAreaColeta = () => {
               <p />
               <Button variant="contained" color="success" onClick={handleGatewaySubmit}>
                 Cadastrar
+              </Button>
+              
+            </Paper>
+
+            <Paper elevation={3} style={{ padding: '20px', marginTop: '40px' }}>
+              <Typography variant="h5" gutterBottom>
+               Permissão para a liberação de dados
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <FormControl>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                      >
+                        <FormControlLabel value="Sim" control={<Radio />} label="Sim" />
+                        <FormControlLabel value="Não" control={<Radio />} label="Não" />
+                      </RadioGroup>
+                    </FormControl>
+                </Grid>
+              </Grid>
+              <p />
+              <Button variant="contained" color="success" onClick={handleGatewaySubmit}>
+                Enviar
               </Button>
               
             </Paper>
