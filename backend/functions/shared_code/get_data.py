@@ -17,3 +17,16 @@ def get_last_data() -> str:
     results = container.query_items(QUERY, enable_cross_partition_query=True)
     items = [item for item in results]
     return json.dumps(items[0]['Body'])
+
+def get_gateways() -> str:
+    """
+    Get all gateways on the Database
+
+    Returns:
+        str: JSON document with a list of all gateways.
+    """
+    QUERY = "SELECT DISTINCT c.sensorid FROM c"
+    PARTITION_KEY_NAME = 'sensorid'
+    results = container.query_items(QUERY, enable_cross_partition_query=True)
+    items = [item[PARTITION_KEY_NAME] for item in results]
+    return json.dumps(items)
