@@ -32,3 +32,9 @@ def list_between_days(start, end=None):
     QUERY = f"SELECT c.id, c.sensorid, c.Body, c._ts FROM c WHERE TimestampToDateTime(c._ts*1000) > '{start}' and TimestampToDateTime(c._ts*1000) < '{end}'"
     results = container.query_items(QUERY, enable_cross_partition_query=True)
     return [item for item in results]
+
+def list_from_gateways(gateway):
+    gateway_list = '(' + ', '.join(f'"{t}"' for t in gateway) + ')'
+    QUERY = f"SELECT c.id, c.sensorid, c.Body, c._ts FROM c WHERE c.sensorid IN {gateway_list}"
+    results = container.query_items(QUERY, enable_cross_partition_query=True)
+    return [item for item in results]
