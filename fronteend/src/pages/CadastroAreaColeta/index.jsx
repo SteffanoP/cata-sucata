@@ -12,7 +12,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 
 export const CadastroAreaColeta = () => {
@@ -25,6 +24,7 @@ export const CadastroAreaColeta = () => {
   })
 
   const [successMessage, setSuccessMessage] = useState('')
+  const [dataPermission, setDataPermission] = useState('');
 
   const handleAreaColetaChange = (event) => {
     const { name, value } = event.target
@@ -70,7 +70,27 @@ export const CadastroAreaColeta = () => {
       setSuccessMessage('');
     }, 3000);
   };
+
+  const handleDataPermission = () => {
+    console.log("A resposta é: ", dataPermission);
+    axios
+      .post('https://cata-sucata.azure-api.net/preview/set-properties', {
+        body: {
+          id:"gerente_de_coleta",
+          prop:"gerente",
+          is_public:dataPermission
+        }
+      }).then((response) => {
+        console.log(response.data);
+        setSuccessMessage("Permissão alterada com sucesso!");
+      }).catch((error) => {
+        console.error(error);
+      });
   
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
+  };
 
   return (
     <Container style={{ marginTop: '5%' }}>
@@ -172,14 +192,14 @@ export const CadastroAreaColeta = () => {
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
                       >
-                        <FormControlLabel value="Sim" control={<Radio />} label="Sim" />
-                        <FormControlLabel value="Não" control={<Radio />} label="Não" />
+                        <FormControlLabel value="true" control={<Radio />} label="Sim" onChange={(e) => setDataPermission(e.target.value)} checked={dataPermission === 'true'}/>
+                        <FormControlLabel value="false" control={<Radio />} label="Não" onChange={(e) => setDataPermission(e.target.value)} checked={dataPermission === 'false'}/>
                       </RadioGroup>
                     </FormControl>
                 </Grid>
               </Grid>
               <p />
-              <Button variant="contained" color="success" onClick={handleGatewaySubmit}>
+              <Button variant="contained" color="success" onClick={handleDataPermission}>
                 Enviar
               </Button>
               
