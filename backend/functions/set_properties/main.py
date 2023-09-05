@@ -11,7 +11,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     properties.upsert_item(
         id=body['id'],
         properties={
-            "is_public": body['is_public']
+            "is_public": body['is_public'],
+            "prop": body['prop']
         }
     )
     return func.HttpResponse(
