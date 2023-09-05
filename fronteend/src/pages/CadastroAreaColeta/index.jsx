@@ -5,10 +5,6 @@ import {Paper} from '@mui/material';
 import {Typography} from '@mui/material';
 import {TextField} from '@mui/material';
 import {Button} from '@mui/material';
-import {FormControl} from '@mui/material';
-import {InputLabel} from '@mui/material';
-import {Select} from '@mui/material';
-import {MenuItem} from '@mui/material';
 import {Grid} from '@mui/material';
 import {Box} from '@mui/material';
 import axios from 'axios';
@@ -19,8 +15,8 @@ export const CadastroAreaColeta = () => {
     nome: '', latitude: '', longitude: '', tamanho: ''
   })
 
-  const [lixeira, setLixeira] = useState({
-    nomeAreaColeta: ''
+  const [gatewayAreaColeta, setGatewayAreaColeta] = useState({
+    areacoleta: '', gateway: ''
   })
 
   const [successMessage, setSuccessMessage] = useState('')
@@ -32,10 +28,10 @@ export const CadastroAreaColeta = () => {
     })
   }
 
-  const handleLixeiraChange = (event) => {
+  const handleGatewayAreaChange = (event) => {
     const { name, value } = event.target;
-    setLixeira({
-      ...lixeira, [name]: value
+    setGatewayAreaColeta({
+      ...gatewayAreaColeta, [name]: value
     })
   }
 
@@ -55,12 +51,12 @@ export const CadastroAreaColeta = () => {
     }, 3000);
   };
 
-  const handleLixeiraSubmit = () => {
+  const handleGatewaySubmit = () => {
+    console.log(gatewayAreaColeta)
     axios
-      .post('https://cata-sucata.azure-api.net/preview/', {
-        ...lixeira,categoria: lixeira.categoria }).then((response) => {
+      .post('https://cata-sucata.azure-api.net/preview/attach-sensor', gatewayAreaColeta).then((response) => {
         console.log(response.data);
-        setSuccessMessage(`Lixeira cadastrada na área de coleta: ${lixeira.nomeAreaColeta}`)
+        setSuccessMessage(`Gateway cadastrada na área de coleta: ${gatewayAreaColeta.areacoleta}`)
       }).catch((error) => {
         console.error(error);
       });
@@ -129,37 +125,34 @@ export const CadastroAreaColeta = () => {
 
             <Paper elevation={3} style={{ padding: '20px', marginTop: '40px' }}>
               <Typography variant="h5" gutterBottom>
-                Cadastrar lixeira em área de coleta existente
+                Associar gateway a uma área de coleta existente
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <TextField
-                    name="nome"
+                    name="areacoleta"
                     label="Nome da área de coleta existente"
                     fullWidth
-                    value={lixeira.nome}
-                    onChange={handleLixeiraChange}
+                    value={gatewayAreaColeta.nome}
+                    onChange={handleGatewayAreaChange}
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>Categoria</InputLabel>
-                    <Select
-                      name="categoria"
-                      marginTop="20px"
-                      value={lixeira.categoria}
-                      onChange={handleLixeiraChange}
-                    >
-                      <MenuItem value="Pública">Pública</MenuItem>
-                      <MenuItem value="Privada">Privada</MenuItem>
-                    </Select>
-                  </FormControl>
+                <TextField
+                  name="gateway"
+                  label="Nome do Gateway"
+                  fullWidth
+                  value={gatewayAreaColeta.gateway}
+                  onChange={handleGatewayAreaChange}
+                />
+
                 </Grid>
               </Grid>
               <p />
-              <Button variant="contained" color="success" onClick={handleLixeiraSubmit}>
+              <Button variant="contained" color="success" onClick={handleGatewaySubmit}>
                 Cadastrar
               </Button>
+              
             </Paper>
           </Box>
         </Grid>
