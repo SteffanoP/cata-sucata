@@ -7,8 +7,7 @@ from shared_code.properties import Properties
 from shared_code.area_coleta import AreaColeta
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    body = req.get_json()
-    nome_area = body.get("areacoleta") or None
+    nome_area = req.params.get("areacoleta") or None
     if nome_area is None:
         return func.HttpResponse(
             "Areacoleta não informada.",
