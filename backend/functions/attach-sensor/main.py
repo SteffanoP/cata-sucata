@@ -32,17 +32,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     gateway = body.get('gateway') or None
     name_areacoleta = body.get('areacoleta') or None
 
-    if not verify_gateway(gateway):
-        return func.HttpResponse(
-            "Gateway not found",
-            status_code=400
-        )
+    # if not verify_gateway(gateway):
+    #     return func.HttpResponse(
+    #         "Gateway not found",
+    #         status_code=400
+    #     )
     
-    if not verify_areacoleta(name_areacoleta):
-        return func.HttpResponse(
-            "AreaColeta not found",
-            status_code=400
-        )
+    # if not verify_areacoleta(name_areacoleta):
+    #     return func.HttpResponse(
+    #         "AreaColeta not found",
+    #         status_code=400
+    #     )
     
     sensors = Sensor.list_with_partition(gateway)
     area = AreaColeta.get_nome(name_areacoleta)
