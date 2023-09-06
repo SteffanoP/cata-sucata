@@ -6,20 +6,22 @@ import Login from './pages/Login/Login';
 import { NotificationsProvider } from './components/NotificationsContext';
 import { FavoritesProvider } from "./components/FavoritesContext";
 import { CadastroAreaColeta } from './pages/CadastroAreaColeta';
+import RoutesPage from './pages/Rotas/RoutesPage';
 
 function App() {
   return (
     <FavoritesProvider>
       <NotificationsProvider>
         <BrowserRouter>
-          <Routes>
-            <Route element={ <Dashboard/> } path='/dashboard'/>
-            <Route element={ <Login/> } path='/login'/>
-            <Route element={ <Login/> } path='/'/>
-            <Route element={ <PageMap/> } path='/map'/>
-            <Route element={ <CadastroAreaColeta/> } path='/settings'/>
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route element={ <Dashboard/> } path='/dashboard'/>
+          <Route element={ <Login/> } path='/login'/>
+          <Route element={ <Login/> } path='/'/>
+          <Route element={ <PageMap/> } path='/map'/>
+          <Route element={ <CadastroAreaColeta/> } path='/settings'/>
+          <Route element={ <RoutesPage/> } path='/rotas'/>
+        </Routes>
+      </BrowserRouter>
       </NotificationsProvider>
     </FavoritesProvider>
   );
