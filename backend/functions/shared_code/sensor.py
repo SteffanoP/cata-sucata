@@ -23,6 +23,13 @@ class Sensor:
         QUERY = "SELECT * FROM c"
         results = container.query_items(QUERY, enable_cross_partition_query=True)
         return [item for item in results]
+
+    @staticmethod
+    def get_from_areacoleta(areacoleta):
+        # gateway_list = '(' + ', '.join(f'"{t}"' for t in gateways) + ')'
+        QUERY = f"SELECT * FROM c WHERE c.areacoleta = '{areacoleta}'"
+        results = container.query_items(QUERY, enable_cross_partition_query=True)
+        return [item for item in results]
     
     @staticmethod
     def upsert(body):
