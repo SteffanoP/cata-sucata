@@ -16,7 +16,7 @@ const mapOptions = {
 function NewMapArea() {
     const [mapContainer, setMapContainer] = useState(null);
     const { favorites, colectAreas, selectedArea, trashColectAreas } = useFavorites(); // Uso do contexto de favoritos
-    const { zoomLevel, setZoomLevel } = useFavorites();
+    const { zoomLevel } = useFavorites();
     return (
         <GoogleMapsProvider 
             googleMapsAPIKey="AIzaSyC7wmmdu6ma7gtXlxsrw2aKwPiTbi46OLY"
