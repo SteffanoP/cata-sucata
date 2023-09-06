@@ -14,6 +14,7 @@ export const useFavorites = () => {
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [colectAreas, setColectAreas] = useState([]); // novo estado
+  const [trashColectAreas, setTrashColectAreas] = useState([]); // novo estado
   const [selectedArea, setSelectedArea] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(14); 
 
@@ -33,7 +34,7 @@ export const FavoritesProvider = ({ children }) => {
       }
     });
   };
-  console.log(selectedArea);
+  //console.log(selectedArea);
 
   // Função para buscar dados de colectAreas da API
   useEffect(() => {
@@ -48,6 +49,26 @@ export const FavoritesProvider = ({ children }) => {
     getColectArea();
   }, []);
 
+  // Função para buscar dados de colectAreas da API
+  function getSensorsColectArea(item){
+    try {
+      axios.get('https://cata-sucata.azure-api.net/preview/get-sensors-areacoleta', {
+        params: {
+          areacoleta: item.nome
+        }
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setTrashColectAreas(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    } catch (error) {
+      console.log("Erro ao buscar lixeiras: ", error);
+    }
+  }
+
   return (
     <FavoritesContext.Provider 
       value={{ 
@@ -59,7 +80,9 @@ export const FavoritesProvider = ({ children }) => {
         colectAreas,
         setColectAreas,
         showAreaLocation,
-        selectedArea
+        selectedArea,
+        getSensorsColectArea,
+        trashColectAreas
       }}
     >
       {children}
