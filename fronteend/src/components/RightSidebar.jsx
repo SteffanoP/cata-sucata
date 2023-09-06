@@ -2,25 +2,32 @@ import React, { useState } from 'react';
 import { Drawer, List, ListItem, TextField, Divider, IconButton } from '@mui/material';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+import { useFavorites } from './FavoritesContext'; // Atualize este caminho
 
 const RightSidebar = () => {
   const [search, setSearch] = useState('');
   const [favoritedBins, setFavoritedBins] = useState({});
   
-  const bins = [
-    'Cordeiro',
-    'Torrões',
-    // ... Adicione quantas lixeiras precisar.
-  ];
+  const { colectAreas, addFavorite, removeFavorite, showAreaLocation, setZoomLevel, getSensorsColectArea } = useFavorites(); // Utilize o hook aqui
 
-  const filteredBins = bins.filter(bin => bin.toLowerCase().includes(search.toLowerCase()));
-
-  const toggleFavorite = binName => {
+  const toggleFavorite = (bin) => {
     setFavoritedBins(prev => ({
       ...prev,
-      [binName]: !prev[binName]
+      [bin.id]: !prev[bin.id]
     }));
+
+    if (favoritedBins[bin.id]) {
+      removeFavorite(bin);
+    } else {
+      addFavorite(bin);
+    }
   };
+
+  const handleLocation = (area) => {
+    showAreaLocation(area);
+    getSensorsColectArea(area); // Essa função pega a área clicada e mostra as lixeiras disponíceis nela
+    setZoomLevel(21); // Este é apenas um exemplo de nível de zoom, ajuste conforme a necessidade.
+};
 
   return (
     <Drawer
@@ -44,11 +51,12 @@ const RightSidebar = () => {
       />
       <Divider />
       <List>
-        {filteredBins.map(binName => (
-          <ListItem key={binName}>
-            {binName}
-            <IconButton onClick={() => toggleFavorite(binName)}>
-              {favoritedBins[binName] ? <StarIcon color="primary" /> : <StarBorderIcon />}
+        {colectAreas.map((item) => (  // Alterado de colectArea para colectAreas
+          <ListItem key={item.id} onClick={() => handleLocation(item)}>
+            {item.nome}
+            <IconButton onClick={() => toggleFavorite(item)}>
+              {colectAreas.some(fav => fav.id === item.id) ? <StarIcon color="primary" /> : <StarBorderIcon />} 
+              {/* Alterado de favorites para colectAreas */}
             </IconButton>
           </ListItem>
         ))}

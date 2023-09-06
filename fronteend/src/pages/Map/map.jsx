@@ -1,6 +1,5 @@
 import React from 'react';
 import {  CssBaseline,  } from '@mui/material';
-import GoogleMapComponent from '../../components/MapArea';
 import RightSidebar from '../../components/RightSidebar';
 import {  ListItem, ListItemIcon, ListItemText,  } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,7 @@ import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
   } from "@azure/msal-react";
+import NewMapArea from '../../components/NewMapArea';
 
 const PageMap = () => {
   return (
@@ -21,7 +21,7 @@ const PageMap = () => {
           <Sidebar />
 
           <main style={{ flexGrow: 1, padding: "16px" }}>
-            <GoogleMapComponent />
+            <NewMapArea/>
           </main>
           <RightSidebar />
         </div>

@@ -7,6 +7,7 @@
     "@azure/msal-react": "^2.0.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.5",
     "@mui/x-charts": "^6.0.0-alpha.7",
@@ -44,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@ubilabs/google-maps-react-hooks": "^2.0.2"
   }
 }
