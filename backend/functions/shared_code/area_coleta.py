@@ -49,7 +49,12 @@ class AreaColeta(object):
         container.delete_item(item=id, partition_key=name)
 
     @staticmethod
+    def upsert(body):
+        container.upsert_item(body=body, pre_trigger_include=None, post_trigger_include=None)
+
+    @staticmethod
     def get_nome(nome):
         QUERY = F'SELECT TOP 1 * FROM c WHERE c.nome = "{nome}"'
         results = container.query_items(QUERY, enable_cross_partition_query=True)
         return [item for item in results]
+    

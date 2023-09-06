@@ -30,3 +30,14 @@ class Sensor:
         QUERY = f"SELECT * FROM c WHERE c.areacoleta = '{areacoleta}'"
         results = container.query_items(QUERY, enable_cross_partition_query=True)
         return [item for item in results]
+    
+    @staticmethod
+    def upsert(body):
+        container.upsert_item(body=body, pre_trigger_include=None, post_trigger_include=None)
+    
+    @staticmethod
+    def list_with_partition(partition_key):
+        QUERY = f"SELECT * FROM c WHERE c.gateway = '{partition_key}'"
+        results = container.query_items(QUERY, enable_cross_partition_query=True)
+        return [item for item in results]
+    

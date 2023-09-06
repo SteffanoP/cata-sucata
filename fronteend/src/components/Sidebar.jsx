@@ -56,7 +56,7 @@ const Sidebar = () => {
           <ListItemIcon><PersonIcon /></ListItemIcon>
           <ListItemText primary="Perfil" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={Link} to="/settings">
           <ListItemIcon><SettingsIcon /></ListItemIcon>
           <ListItemText primary="Configurações" />
         </ListItem>

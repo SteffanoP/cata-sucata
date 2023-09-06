@@ -38,3 +38,16 @@ def list_from_gateways(gateway):
     QUERY = f"SELECT c.id, c.sensorid, c.Body, c._ts FROM c WHERE c.sensorid IN {gateway_list}"
     results = container.query_items(QUERY, enable_cross_partition_query=True)
     return [item for item in results]
+
+def get_gateways() -> str:
+    """
+    Get all gateways on the Database
+
+    Returns:
+        str: JSON document with a list of all gateways.
+    """
+    QUERY = "SELECT DISTINCT c.sensorid FROM c"
+    PARTITION_KEY_NAME = 'sensorid'
+    results = container.query_items(QUERY, enable_cross_partition_query=True)
+    items = [item[PARTITION_KEY_NAME] for item in results]
+    return json.dumps(items)
