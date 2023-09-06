@@ -87,15 +87,15 @@ export const CadastroAreaColeta = () => {
       )
       .then((response) => {
         console.log(response.data);
-        //setSuccessMessage("Área de coleta cadastrada com sucesso!");
+        setSuccessMessage("Lixeira cadastrada com sucesso!");
       })
       .catch((error) => {
         console.error(error);
       });
 
-    // setTimeout(() => {
-    //   setSuccessMessage("");
-    // }, 3000);
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
   };
 
   const handleGatewaySubmit = () => {
