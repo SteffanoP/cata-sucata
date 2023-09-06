@@ -15,7 +15,7 @@ const mapOptions = {
 
 function NewMapArea() {
     const [mapContainer, setMapContainer] = useState(null);
-    const { favorites, colectAreas, selectedArea } = useFavorites(); // Uso do contexto de favoritos
+    const { favorites, colectAreas, selectedArea, trashColectAreas } = useFavorites(); // Uso do contexto de favoritos
     const { zoomLevel, setZoomLevel } = useFavorites();
     return (
         <GoogleMapsProvider 
@@ -24,12 +24,12 @@ function NewMapArea() {
             mapContainer={mapContainer}
         >
             <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
-            <Location favorites={favorites} colectAreas={colectAreas} selectedArea={selectedArea}/>
+            <Location favorites={favorites} colectAreas={colectAreas} selectedArea={selectedArea} trashColectAreas={trashColectAreas}/>
         </GoogleMapsProvider>
     );
 }
 
-function Location({ favorites, colectAreas, selectedArea }) {
+function Location({ favorites, colectAreas, selectedArea, trashColectAreas }) {
 
     const map = useGoogleMap();
     const markerRef = useRef(null);
@@ -41,7 +41,6 @@ function Location({ favorites, colectAreas, selectedArea }) {
       if (typeof window.google === "undefined" || !map || markerRef.current) return;
       markerRef.current = new google.maps.Marker({
         map,
-        icon: trashIcon // ou a URL para seu ícone personalizado
       });
     }, [map]);
     
@@ -70,14 +69,14 @@ function Location({ favorites, colectAreas, selectedArea }) {
       });
 
       // Adicionando markers para colectAreas
-      colectAreas.forEach((area) => {
+      trashColectAreas.forEach((area) => {
         new google.maps.Marker({
           map,
           position: { lat: parseFloat(area.latitude), lng: parseFloat(area.longitude) },
           icon: trashIcon // ou a URL para seu ícone personalizado
         });
       });
-    }, [favorites, colectAreas, map]);
+    }, [favorites, trashColectAreas, map]);
 
     return (
         <div></div>
