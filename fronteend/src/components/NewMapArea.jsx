@@ -2,7 +2,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { GoogleMapsProvider, useGoogleMap } from '@ubilabs/google-maps-react-hooks';
 import { useFavorites } from './FavoritesContext'; // Importação do contexto de favoritos
-import trashIcon from "../assets/trash.png";
+import trash_red from "../assets/trash_red.png";
+import trash_yellow from "../assets/trash_yellow.png";
+import trash_green from "../assets/trash_green.png";
+import trash_warning from "../assets/trash_warning.png";
 
 const mapOptions = {
   zoom: 8,
@@ -64,7 +67,7 @@ function Location({ favorites, colectAreas, selectedArea, trashColectAreas }) {
         new google.maps.Marker({
           map,
           position: { lat: parseFloat(fav.latitude), lng: parseFloat(fav.longitude) },
-          icon: trashIcon // ou a URL para seu ícone de favorito
+          icon: trash_warning // ou a URL para seu ícone de favorito
         });
       });
 
@@ -73,7 +76,7 @@ function Location({ favorites, colectAreas, selectedArea, trashColectAreas }) {
         new google.maps.Marker({
           map,
           position: { lat: parseFloat(area.latitude), lng: parseFloat(area.longitude) },
-          icon: trashIcon // ou a URL para seu ícone personalizado
+          icon: trash_warning // ou a URL para seu ícone personalizado
         });
       });
     }, [favorites, trashColectAreas, map]);
