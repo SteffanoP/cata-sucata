@@ -6,30 +6,26 @@ import azure.functions as func
 from shared_code.get_data import get_last_data
 from shared_code.sensor import Sensor
 
-payload_response = {
-    "sensor_data": []
-}
+payload_response = []
 
-PAYLOAD_EXAMPLE = {
-    "sensor_data": [
-        {
-            'id': '0001',
-            'latitude': '-8.2106378',
-            'longitude': '-34.9203501',
-            'gateway': 'nodemcu-steffano',
-            'areacoleta': 'Dois Irmãos',
-            'status': 'empty'
-        },
-        {
-            'id': '0002',
-            'latitude': '-9.0767778',
-            'longitude': '-12.8703501',
-            'gateway': 'nodemcu-steffano',
-            'areacoleta': 'Cordeiros',
-            'status': 'medium'
-        }
-    ]
-}
+PAYLOAD_EXAMPLE = [
+    {
+        'id': '0001',
+        'latitude': '-8.2106378',
+        'longitude': '-34.9203501',
+        'gateway': 'nodemcu-steffano',
+        'areacoleta': 'Dois Irmãos',
+        'status': 'empty'
+    },
+    {
+        'id': '0002',
+        'latitude': '-9.0767778',
+        'longitude': '-12.8703501',
+        'gateway': 'nodemcu-steffano',
+        'areacoleta': 'Cordeiros',
+        'status': 'medium'
+    }
+]
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -67,9 +63,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     all_sensors = Sensor.list_all()
     response = process_sensor_data(sensor_data, all_sensors)
 
-    payload_response.update({
-        "sensor_data": response
-    })
+    payload_response = response
 
     return func.HttpResponse(
         json.dumps(payload_response),

@@ -18,7 +18,8 @@ const mapOptions = {
 
 function NewMapArea() {
     const [mapContainer, setMapContainer] = useState(null);
-    const { favorites, colectAreas, selectedArea, trashColectAreas } = useFavorites(); // Uso do contexto de favoritos
+    const { favorites, colectAreas, selectedArea, trashColectAreas, trashStatus } = useFavorites(); // Uso do contexto de favoritos
+   
     const { zoomLevel } = useFavorites();
     return (
         <GoogleMapsProvider 
@@ -27,18 +28,18 @@ function NewMapArea() {
             mapContainer={mapContainer}
         >
             <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
-            <Location favorites={favorites} colectAreas={colectAreas} selectedArea={selectedArea} trashColectAreas={trashColectAreas}/>
+            <Location favorites={favorites} colectAreas={colectAreas} selectedArea={selectedArea} trashColectAreas={trashColectAreas} trashStatus={trashStatus}/>
         </GoogleMapsProvider>
     );
 }
 
-function Location({ favorites, colectAreas, selectedArea, trashColectAreas }) {
+function Location({ favorites, colectAreas, selectedArea, trashColectAreas, trashStatus }) {
 
     const map = useGoogleMap();
     const markerRef = useRef(null);
-   
-    console.log(parseFloat(selectedArea.latitude));
-    console.log(parseFloat(selectedArea.longitude));
+    
+    // console.log(parseFloat(selectedArea.latitude));
+    // console.log(parseFloat(selectedArea.longitude));
     
     useEffect(() => {
       if (typeof window.google === "undefined" || !map || markerRef.current) return;
@@ -71,15 +72,21 @@ function Location({ favorites, colectAreas, selectedArea, trashColectAreas }) {
         });
       });
 
-      // Adicionando markers para colectAreas
-      trashColectAreas.forEach((area) => {
+      // Adicionando as lixeiras
+      trashStatus.forEach((area) => {
+
+        let icon = trash_warning
+        if (area.status == "full") {icon = trash_red}
+        else if (area.status == "medium") {icon = trash_green}
+        else if (area.status == "empty") {icon = trash_yellow}
+
         new google.maps.Marker({
           map,
           position: { lat: parseFloat(area.latitude), lng: parseFloat(area.longitude) },
-          icon: trash_warning // ou a URL para seu ícone personalizado
+          icon: icon // ou a URL para seu ícone personalizado
         });
       });
-    }, [favorites, trashColectAreas, map]);
+    }, [favorites, trashStatus, map]);
 
     return (
         <div></div>

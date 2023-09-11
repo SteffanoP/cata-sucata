@@ -2,9 +2,12 @@
 
 import React, { useEffect } from 'react';
 import customIcon from '../assets/trash.png';
+import { useFavorites } from './FavoritesContext'; 
 
 function GoogleMapComponent() {
+
   useEffect(() => {
+    
     function initMap() {
       const map = new google.maps.Map(document.getElementById("map"), {
         center: new google.maps.LatLng(-8.0522, -34.9286), // Centro de Recife
@@ -47,6 +50,8 @@ function GoogleMapComponent() {
           map: map,
         });
       }
+
+     
     }
 
     if(!window.google) {

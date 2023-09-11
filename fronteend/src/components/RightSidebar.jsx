@@ -8,7 +8,7 @@ const RightSidebar = () => {
   const [search, setSearch] = useState('');
   const [favoritedBins, setFavoritedBins] = useState({});
   
-  const { colectAreas, addFavorite, removeFavorite, showAreaLocation, setZoomLevel, getSensorsColectArea } = useFavorites(); // Utilize o hook aqui
+  const { colectAreas, addFavorite, removeFavorite, showAreaLocation, setZoomLevel, getSensorsColectArea, getStatusSensors } = useFavorites(); // Utilize o hook aqui
 
   const toggleFavorite = (bin) => {
     setFavoritedBins(prev => ({
@@ -25,6 +25,7 @@ const RightSidebar = () => {
 
   const handleLocation = (area) => {
     showAreaLocation(area);
+    getStatusSensors();
     getSensorsColectArea(area); // Essa função pega a área clicada e mostra as lixeiras disponíceis nela
     setZoomLevel(21); // Este é apenas um exemplo de nível de zoom, ajuste conforme a necessidade.
 };

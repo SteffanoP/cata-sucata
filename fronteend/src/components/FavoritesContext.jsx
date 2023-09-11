@@ -15,6 +15,7 @@ export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [colectAreas, setColectAreas] = useState([]); // novo estado
   const [trashColectAreas, setTrashColectAreas] = useState([]); // novo estado
+  const [trashStatus, setTrashStatus] = useState([]);
   const [selectedArea, setSelectedArea] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(14); 
 
@@ -58,7 +59,7 @@ export const FavoritesProvider = ({ children }) => {
         }
       })
       .then((response) => {
-        //console.log(response.data);
+        // console.log(response.data);
         setTrashColectAreas(response.data);
       })
       .catch((error) => {
@@ -69,6 +70,22 @@ export const FavoritesProvider = ({ children }) => {
     }
   }
 
+  // Função para buscar os status das lixeiras
+  function getStatusSensors(){
+    try {
+      axios.get('https://cata-sucata.azure-api.net/preview/get-status-sensors')
+      .then((response) => {
+        // console.log(response.data);
+        setTrashStatus(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    } catch (error) {
+      console.log("Erro ao buscar status: ", error);
+    }
+  }
+  
   return (
     <FavoritesContext.Provider 
       value={{ 
@@ -82,7 +99,9 @@ export const FavoritesProvider = ({ children }) => {
         showAreaLocation,
         selectedArea,
         getSensorsColectArea,
-        trashColectAreas
+        trashColectAreas,
+        getStatusSensors,
+        trashStatus
       }}
     >
       {children}
