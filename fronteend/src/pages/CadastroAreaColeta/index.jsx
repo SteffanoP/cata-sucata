@@ -86,7 +86,6 @@ export const CadastroAreaColeta = () => {
         lixeira
       )
       .then((response) => {
-        console.log(response.data);
         setSuccessMessage("Lixeira cadastrada com sucesso!");
       })
       .catch((error) => {
@@ -99,14 +98,13 @@ export const CadastroAreaColeta = () => {
   };
 
   const handleGatewaySubmit = () => {
-    console.log(gatewayAreaColeta);
     axios
       .post(
         "https://cata-sucata.azure-api.net/preview/attach-sensor",
         gatewayAreaColeta
       )
       .then((response) => {
-        console.log(response.data);
+        
         setSuccessMessage(
           `Gateway cadastrada na área de coleta: ${gatewayAreaColeta.areacoleta}`
         );
@@ -122,7 +120,7 @@ export const CadastroAreaColeta = () => {
 
   // Função que envia a permissão ou não da liberação dos dados ao público
   const handlePostDataPermission = () => {
-    console.log("A resposta é: ", dataPermission);
+    
     axios
       .post("https://cata-sucata.azure-api.net/preview/set_properties", {
         id: "gerente_de_coleta",
@@ -130,7 +128,7 @@ export const CadastroAreaColeta = () => {
         is_public: dataPermission,
       })
       .then((response) => {
-        console.log(response.data);
+       
         setSuccessMessage("Permissão alterada com sucesso!");
       })
       .catch((error) => {

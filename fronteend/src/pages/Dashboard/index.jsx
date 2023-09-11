@@ -60,7 +60,7 @@ export const Dashboard = () => {
 
       setNotifications(novasNotificações);
     } catch (error) {
-      console.log("Erro ao buscar dados:", error);
+      console.error("Erro ao buscar dados:", error);
     }
   };
 

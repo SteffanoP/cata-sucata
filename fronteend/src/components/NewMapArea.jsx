@@ -23,7 +23,7 @@ function NewMapArea() {
     const { zoomLevel } = useFavorites();
     return (
         <GoogleMapsProvider 
-            googleMapsAPIKey="AIzaSyC7wmmdu6ma7gtXlxsrw2aKwPiTbi46OLY"
+            googleMapsAPIKey="AIzaSyDkCadcGmYqC47tyi5UW-_VpNdmV10Mpwk"
             mapOptions={{...mapOptions, zoom: zoomLevel }}
             mapContainer={mapContainer}
         >

@@ -30,6 +30,8 @@ const RightSidebar = () => {
     setZoomLevel(21); // Este é apenas um exemplo de nível de zoom, ajuste conforme a necessidade.
 };
 
+
+
   return (
     <Drawer
       variant="permanent"

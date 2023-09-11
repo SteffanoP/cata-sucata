@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import DirectionsIcon from '@mui/icons-material/Directions';
 import cataSucataIcon from '../assets/cata-sucata.png';  // Ajuste o caminho se necessário
 import MapIcon from '@mui/icons-material/Map';
 import { useMsal } from "@azure/msal-react";  // Importe useMsal
@@ -51,6 +52,10 @@ const Sidebar = () => {
         <ListItem button component={Link} to="/map">
           <ListItemIcon><MapIcon /></ListItemIcon>
           <ListItemText primary="Mapa" />
+        </ListItem>
+        <ListItem button component={Link} to="/mapColeta">
+          <ListItemIcon><DirectionsIcon /></ListItemIcon>
+          <ListItemText primary="Rotas de Coleta" />
         </ListItem>
         <ListItem button>
           <ListItemIcon><PersonIcon /></ListItemIcon>

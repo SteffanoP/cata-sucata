@@ -17,7 +17,9 @@ export const FavoritesProvider = ({ children }) => {
   const [trashColectAreas, setTrashColectAreas] = useState([]); // novo estado
   const [trashStatus, setTrashStatus] = useState([]);
   const [selectedArea, setSelectedArea] = useState([]);
-  const [zoomLevel, setZoomLevel] = useState(14); 
+  const [zoomLevel, setZoomLevel] = useState(14);
+
+
 
   // Funções para gerenciar favoritos
   const addFavorite = (item) => {
@@ -30,16 +32,15 @@ export const FavoritesProvider = ({ children }) => {
 
   const showAreaLocation = (item) => {
     colectAreas.forEach((areaMatch) => {
-      if(areaMatch.id === item.id){
+      if (areaMatch.id === item.id) {
         setSelectedArea(item);
       }
     });
   };
-  //console.log(selectedArea);
 
   // Função para buscar dados de colectAreas da API
   useEffect(() => {
-    async function getColectArea(){
+    async function getColectArea() {
       try {
         let response = await axios.get('https://cata-sucata.azure-api.net/preview/list-areacoleta');
         setColectAreas(response.data);
@@ -51,46 +52,46 @@ export const FavoritesProvider = ({ children }) => {
   }, []);
 
   // Função para buscar dados de colectAreas da API
-  function getSensorsColectArea(item){
+  function getSensorsColectArea(item) {
     try {
       axios.get('https://cata-sucata.azure-api.net/preview/get-sensors-areacoleta', {
         params: {
           areacoleta: item.nome
         }
       })
-      .then((response) => {
-        // console.log(response.data);
-        setTrashColectAreas(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          // console.log(response.data);
+          setTrashColectAreas(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } catch (error) {
       console.log("Erro ao buscar lixeiras: ", error);
     }
   }
 
   // Função para buscar os status das lixeiras
-  function getStatusSensors(){
+  function getStatusSensors() {
     try {
       axios.get('https://cata-sucata.azure-api.net/preview/get-status-sensors')
-      .then((response) => {
-        // console.log(response.data);
-        setTrashStatus(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          // console.log(response.data);
+          setTrashStatus(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } catch (error) {
       console.log("Erro ao buscar status: ", error);
     }
   }
-  
+
   return (
-    <FavoritesContext.Provider 
-      value={{ 
-        favorites, 
-        addFavorite, 
+    <FavoritesContext.Provider
+      value={{
+        favorites,
+        addFavorite,
         removeFavorite,
         zoomLevel,
         setZoomLevel,
@@ -106,5 +107,5 @@ export const FavoritesProvider = ({ children }) => {
     >
       {children}
     </FavoritesContext.Provider>
-);
+  );
 };
